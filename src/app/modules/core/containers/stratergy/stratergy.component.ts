@@ -44,11 +44,6 @@ export class StratergyComponent implements OnInit {
       };
     });
     console.log(this.dataToDisplay);
-    if (this.dataToDisplay.length > 0) {
-      for (let i = 0; i < 10; i++) {
-        this.dataToDisplay.push(this.dataToDisplay[0]);
-      }
-    }
     this.dataSource = new MatTableDataSource(this.dataToDisplay);
     this.dataSource.sort = this.sort;
   }
