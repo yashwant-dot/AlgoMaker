@@ -1,0 +1,21 @@
+<div [formGroup]="inputForm" class="shared__input">
+  <mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <input
+      matInput
+      [type]="type"
+      autocomplete="off"
+      [formControlName]="inputControl"
+    />
+    <mat-error
+      *ngIf="
+        inputForm.get(inputControl)?.touched ||
+        inputForm.get(inputControl)?.dirty
+      "
+    >
+      <ng-container *ngIf="inputForm.get(inputControl)?.hasError('required')">
+        {{ label }} is required
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+</div>

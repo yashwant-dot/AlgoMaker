@@ -1,44 +1,79 @@
 <div class="auth">
   <div class="auth__container">
-    <div class="auth__text">
-      <h1>AlgoMaker</h1>
-    </div>
-
     <div class="auth__card">
       <mat-card>
-        <mat-card-title>Register</mat-card-title>
+        <div class="auth__card-header row align-items-center">
+          <div class="col-7">
+            <h2>Register</h2>
+            <p>Get your free AlgoMaker account now.</p>
+          </div>
+          <div class="col-5">
+            <img src="assets/images/profile-img.png" alt="" class="img-fluid" />
+          </div>
+        </div>
         <mat-card-content>
           <form class="auth__form" [formGroup]="signupForm">
             <div class="form__field">
-              <mat-form-field>
-                <input matInput type="text" placeholder="Name" autocomplete="off" formControlName="name">
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Name"
+                  autocomplete="off"
+                  formControlName="name"
+                />
               </mat-form-field>
             </div>
             <div class="form__field">
-              <mat-form-field>
-                <input matInput type="email" placeholder="Email" autocomplete="off" formControlName="email">
-                <mat-error *ngIf="
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="email"
+                  placeholder="Email"
+                  autocomplete="off"
+                  formControlName="email"
+                />
+                <mat-error
+                  *ngIf="
                     signupForm.get('email')?.touched ||
-                    signupForm.get('email')?.dirty">
-                  <ng-container *ngIf="signupForm.get('email')?.hasError('required')">
+                    signupForm.get('email')?.dirty
+                  "
+                >
+                  <ng-container
+                    *ngIf="signupForm.get('email')?.hasError('required')"
+                  >
                     Email is required
                   </ng-container>
-                  <ng-container *ngIf="signupForm.get('email')?.hasError('email')">
+                  <ng-container
+                    *ngIf="signupForm.get('email')?.hasError('email')"
+                  >
                     Please enter valid email
                   </ng-container>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="form__field">
-              <mat-form-field>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                  placeholder="Password"
+                  formControlName="password"
+                />
                 <button mat-icon-button matSuffix (click)="hide = !hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
                 </button>
-                <mat-error *ngIf="
+                <mat-error
+                  *ngIf="
                     signupForm.get('password')?.touched ||
-                    signupForm.get('password')?.dirty">
-                  <ng-container *ngIf="signupForm.get('password')?.hasError('required')">
+                    signupForm.get('password')?.dirty
+                  "
+                >
+                  <ng-container
+                    *ngIf="signupForm.get('password')?.hasError('required')"
+                  >
                     Password is required
                   </ng-container>
                 </mat-error>
@@ -47,8 +82,17 @@
           </form>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">SIGN UP</button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!signupForm.valid"
+            (click)="signup(signupForm.getRawValue())"
+          >
+            SIGN UP
+          </button>
         </mat-card-actions>
+        <a routerLink="/login" class="link">Already have an account? Log In</a>
       </mat-card>
     </div>
   </div>

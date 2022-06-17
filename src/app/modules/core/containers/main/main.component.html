@@ -1,0 +1,39 @@
+<div class="main__container">
+  <mat-sidenav-container>
+    <mat-sidenav
+      style="width: 240px; background-color: white; height: 100%"
+      [opened]="open"
+      mode="side"
+    >
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="toolbar__container">
+        <mat-toolbar class="toolbar">
+          <div>
+            <button
+              mat-icon-button
+              aria-label="menu icon"
+              style="margin-right: 1rem"
+              (click)="open = !open"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+          <div>
+            <button
+              mat-button
+              aria-label="logout icon"
+              class="logoutButton"
+              (click)="logout()"
+            >
+              <span style="margin-right: 0.5rem">LOGOUT</span>
+              <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+        </mat-toolbar>
+      </div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

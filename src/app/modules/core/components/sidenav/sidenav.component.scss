@@ -1,0 +1,39 @@
+.mainSidenav {
+  height: 100%;
+  background: #2a3041;
+  padding: 1rem;
+
+  .logo {
+    margin-bottom: 4rem;
+    text-align: center;
+    color: white;
+
+    h2 {
+      text-transform: capitalize;
+    }
+  }
+
+  .navList {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li a {
+        color: #a6b0cf;
+        display: block;
+        padding: 0.625rem 1.5rem;
+        position: relative;
+        font-size: 1rem;
+        transition: all 0.4s;
+
+        &:hover {
+          color: #ffffff;
+        }
+
+        &.activeLink {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

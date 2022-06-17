@@ -1,0 +1,26 @@
+<div [formGroup]="dropdownForm" class="shared__dropdown">
+  <mat-form-field>
+    <mat-select
+      [formControlName]="dropdownControl"
+      [required]="isRequired"
+      [placeholder]="placeholder"
+    >
+      <mat-option *ngFor="let option of optionsData" [value]="option.id">
+        {{ option.name }}
+      </mat-option>
+    </mat-select>
+
+    <mat-error
+      *ngIf="
+        dropdownForm.get(dropdownControl)?.touched ||
+        dropdownForm.get(dropdownControl)?.dirty
+      "
+    >
+      <ng-container
+        *ngIf="dropdownForm.get(dropdownControl)?.hasError('required')"
+      >
+        {{ placeholder }} is required
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+</div>

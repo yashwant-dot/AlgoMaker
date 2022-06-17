@@ -15,7 +15,7 @@ import { AuthGuard } from './modules/auth/guards/auth.guard';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot([]),
     EffectsModule.forRoot([]),
     AuthModule,
     HttpClientModule,

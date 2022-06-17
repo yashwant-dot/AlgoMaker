@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
   login(formvalue: any): void {
     this.authService.login(formvalue).subscribe((data) => {
       if (!data.error) {
-        this.router.navigate(['/admin/accounts']);
+        this.router.navigate(['/admin/stratergy']);
         return;
       }
-      console.log('error...', data.error);
+      alert(data.error);
     });
   }
 }

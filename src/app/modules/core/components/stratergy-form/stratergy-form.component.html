@@ -1,0 +1,140 @@
+<div class="stratergy__form">
+  <div class="stratergy__form-header">
+    <h2 mat-dialog-title class="mb-4">Create Stratergy</h2>
+    <button mat-icon-button type="button" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="stratergyFormGroup">
+    <div class="row mb-3">
+      <div class="col-6 col-md-6">
+        <shared-input
+          [type]="'text'"
+          [inputForm]="stratergyFormGroup"
+          [inputControl]="'name'"
+          [label]="'Stratergy Name'"
+        ></shared-input>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <mat-form-field>
+          <mat-label>Entry Time</mat-label>
+          <input matInput type="time" autocomplete="off" />
+        </mat-form-field>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <mat-form-field>
+          <mat-label>Entry Time</mat-label>
+          <input matInput type="time" autocomplete="off" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Direction'"
+          [optionsData]="directionOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'direction'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Timeframe'"
+          [optionsData]="timeframeOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'timeFrame'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Condition'"
+          [optionsData]="conditionOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'condition'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Order Type'"
+          [optionsData]="orderTypeOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'orderType'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+      <div class="col-6 col-md-3">
+        <shared-input
+          [type]="'number'"
+          [inputForm]="stratergyFormGroup"
+          [inputControl]="'target'"
+          [label]="'Target'"
+        ></shared-input>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Target Unit'"
+          [optionsData]="targetUnitOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'targetunit'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6 col-md-3">
+        <shared-input
+          [type]="'number'"
+          [inputForm]="stratergyFormGroup"
+          [inputControl]="'stopLoss'"
+          [label]="'Stoploss'"
+        ></shared-input>
+      </div>
+      <div class="form__field col-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Stoploss Unit'"
+          [optionsData]="stopLossUnitOptions"
+          [dropdownForm]="stratergyFormGroup"
+          [dropdownControl]="'stopLossunit'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+      <div class="col-6 col-md-3">
+        <shared-input
+          [type]="'number'"
+          [inputForm]="stratergyFormGroup"
+          [inputControl]="'quantity'"
+          [label]="'Quantity'"
+        ></shared-input>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button
+        mat-raised-button
+        type="button"
+        style="padding: 0 3rem; margin-right: 1rem"
+        (click)="onClose()"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        style="padding: 0 3rem"
+        (click)="onClick(stratergyFormGroup.getRawValue())"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</div>

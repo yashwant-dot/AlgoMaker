@@ -1,12 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountsComponent } from './containers/accounts/accounts.component';
+import {
+  MainComponent,
+  AccountComponent,
+  StratergyComponent,
+  PositionComponent,
+  TradeComponent,
+} from './containers';
 
 const routes: Routes = [
   {
-    path: 'accounts',
-    pathMatch: 'full',
-    component: AccountsComponent,
+    path: '',
+    component: MainComponent,
+    children: [
+      { path: 'account', component: AccountComponent },
+      { path: 'position', component: PositionComponent },
+      { path: 'trade', component: TradeComponent },
+      {
+        path: 'stratergy',
+        component: StratergyComponent,
+      },
+    ],
   },
 ];
 
