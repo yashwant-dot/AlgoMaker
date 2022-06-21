@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import {
   directionOptions,
   timeframeOptions,
@@ -10,7 +10,6 @@ import {
   targetUnitOptions,
   stopLossUnitOptions,
 } from '../../models';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-stratergy-form',
@@ -26,62 +25,16 @@ export class StratergyFormComponent implements OnInit {
   orderTypeOptions = orderTypeOptions;
   targetUnitOptions = targetUnitOptions;
   stopLossUnitOptions = stopLossUnitOptions;
-  stratergyFormGroup!: FormGroup;
+  @Input() stratergyFormGroup!: FormGroup;
+  @Output() addStratergy: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private fb: FormBuilder,
-    public formModalRef: MatDialogRef<StratergyFormComponent>
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.initStratergyForm();
+    console.log('form..', this.stratergyFormGroup);
   }
 
-  initStratergyForm(): void {
-    this.stratergyFormGroup = this.fb.group({
-      name: ['', Validators.required],
-      direction: ['', [Validators.required]],
-      timeFrame: ['', [Validators.required]],
-      condition: ['', [Validators.required]],
-      orderType: ['', [Validators.required]],
-      target: ['', [Validators.required]],
-      targetunit: ['', [Validators.required]],
-      stopLoss: ['', [Validators.required]],
-      stopLossunit: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-    });
-  }
-
-  // {
-  //   name,
-  //   entryTime,
-  //   exitTime,
-  //   direction,
-  //   timeFrame,
-  //   orderType,
-  //   quantity,
-  //   stopLoss,
-  //   target,
-  //   instrument1,
-  //   period1,
-  //   multiplier1,
-  //   candleParam1,
-  //   instrument2,
-  //   period2,
-  //   multiplier2,
-  //   candleParam2,
-  //   indicator1,
-  //   indicator2,
-  //   condition,
-  //   targetunit,
-  //   stopLossunit,
-  // }
-
-  onClick(formValues: any): void {
-    console.log(formValues);
-  }
-
-  onClose(): void {
-    this.formModalRef.close();
+  get indicators(): FormArray {
+    return this.stratergyFormGroup.get('indicators') as FormArray;
   }
 }

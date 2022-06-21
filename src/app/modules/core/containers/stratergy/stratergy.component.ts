@@ -3,9 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { getStratergies, GetStratergy } from '../../+state';
-import { MatDialog } from '@angular/material/dialog';
-import { StratergyFormComponent } from '../../components';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-stratergy',
   templateUrl: './stratergy.component.html',
@@ -24,7 +22,7 @@ export class StratergyComponent implements OnInit {
   ];
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetStratergy());
@@ -48,10 +46,7 @@ export class StratergyComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  onCreate(): any {
-    const dialogRef = this.dialog.open(StratergyFormComponent, {
-      width: '80%',
-      disableClose: true,
-    });
+  onAddStratergy(): any {
+    this.router.navigate(['admin/stratergy/add']);
   }
 }

@@ -1,10 +1,7 @@
 <div [formGroup]="dropdownForm" class="shared__dropdown">
-  <mat-form-field>
-    <mat-select
-      [formControlName]="dropdownControl"
-      [required]="isRequired"
-      [placeholder]="placeholder"
-    >
+  <label style="margin-bottom: 0.5rem">{{ placeholder }}</label>
+  <mat-form-field appearance="outline">
+    <mat-select [formControlName]="dropdownControl" [required]="isRequired">
       <mat-option *ngFor="let option of optionsData" [value]="option.id">
         {{ option.name }}
       </mat-option>

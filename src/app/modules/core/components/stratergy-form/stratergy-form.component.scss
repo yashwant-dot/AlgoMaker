@@ -1,7 +1,5 @@
-.stratergy__form {
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+.form__field {
+  mat-form-field {
+    width: 100%;
   }
 }

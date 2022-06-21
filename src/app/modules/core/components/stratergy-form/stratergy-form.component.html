@@ -1,13 +1,6 @@
 <div class="stratergy__form">
-  <div class="stratergy__form-header">
-    <h2 mat-dialog-title class="mb-4">Create Stratergy</h2>
-    <button mat-icon-button type="button" (click)="onClose()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
   <form [formGroup]="stratergyFormGroup">
-    <div class="row mb-3">
+    <div class="row mb-1">
       <div class="col-6 col-md-6">
         <shared-input
           [type]="'text'"
@@ -30,7 +23,7 @@
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row mb-1">
       <div class="form__field col-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Direction'"
@@ -51,7 +44,68 @@
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div formArrayName="indicators">
+      <div *ngFor="let line of indicators.controls; let i = index">
+        <div class="row mb-1" [formGroupName]="i">
+          <div class="form__field col-6 col-md-3">
+            <label style="margin-bottom: 0.5rem">Indicator {{ i + 1 }}</label>
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Indicator {{ i + 1 }}</mat-label> -->
+              <mat-select formControlName="indicator">
+                <mat-option
+                  *ngFor="let option of indicatorOptions"
+                  [value]="option.id"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form__field col-6 col-md-3">
+            <label style="margin-bottom: 0.5rem">Period {{ i + 1 }}</label>
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Period {{ i + 1 }}</mat-label> -->
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                formControlName="period"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form__field col-6 col-md-3">
+            <label style="margin-bottom: 0.5rem">Multiplier {{ i + 1 }}</label>
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Multiplier {{ i + 1 }}</mat-label> -->
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                formControlName="multiplier"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form__field col-6 col-md-3">
+            <label style="margin-bottom: 0.5rem"
+              >Candle Param {{ i + 1 }}</label
+            >
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Candle Param {{ i + 1 }}</mat-label> -->
+              <mat-select formControlName="candleParam">
+                <mat-option
+                  *ngFor="let option of candleParamOptions"
+                  [value]="option.id"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-1">
       <div class="form__field col-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Condition'"
@@ -89,7 +143,7 @@
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row mb-1">
       <div class="col-6 col-md-3">
         <shared-input
           [type]="'number'"
@@ -118,22 +172,22 @@
     </div>
 
     <div class="d-flex justify-content-end">
-      <button
+      <!-- <button
         mat-raised-button
         type="button"
         style="padding: 0 3rem; margin-right: 1rem"
         (click)="onClose()"
       >
         Cancel
-      </button>
+      </button> -->
       <button
         mat-raised-button
         color="primary"
         type="button"
         style="padding: 0 3rem"
-        (click)="onClick(stratergyFormGroup.getRawValue())"
+        (click)="addStratergy.emit(stratergyFormGroup.getRawValue())"
       >
-        Create
+        Add
       </button>
     </div>
   </form>

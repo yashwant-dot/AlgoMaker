@@ -1,0 +1,13 @@
+<div class="stratergy-add">
+  <div class="stratergy-add__header">
+    <h2>Add Stratergy</h2>
+  </div>
+  <div class="mat-elevation-z8">
+    <div class="stratergy-add__container">
+      <app-stratergy-form
+        [stratergyFormGroup]="stratergyFormGroup"
+        (addStratergy)="onAddStratergy($event)"
+      ></app-stratergy-form>
+    </div>
+  </div>
+</div>

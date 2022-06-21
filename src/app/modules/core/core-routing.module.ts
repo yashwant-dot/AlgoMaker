@@ -6,6 +6,7 @@ import {
   StratergyComponent,
   PositionComponent,
   TradeComponent,
+  StratergyAddComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'stratergy',
         component: StratergyComponent,
+      },
+      {
+        path: 'stratergy/add',
+        component: StratergyAddComponent,
       },
     ],
   },

@@ -10,6 +10,7 @@ import {
   PositionComponent,
   TradeComponent,
   AccountComponent,
+  StratergyAddComponent,
 } from './containers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidenavComponent, StratergyFormComponent } from './components';
@@ -25,6 +26,7 @@ import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
     PositionComponent,
     TradeComponent,
     AccountComponent,
+    StratergyAddComponent,
   ],
   imports: [
     CommonModule,
