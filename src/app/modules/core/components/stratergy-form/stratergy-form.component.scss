@@ -1,5 +1,11 @@
-.form__field {
-  mat-form-field {
-    width: 100%;
+.stratergy__form {
+  label {
+    font-weight: 600;
+  }
+
+  .form__field {
+    mat-form-field {
+      width: 100%;
+    }
   }
 }

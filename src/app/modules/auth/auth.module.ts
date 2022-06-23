@@ -6,10 +6,14 @@ import { AuthGuard } from './guards/auth.guard';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './token.interceptor';
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   imports: [
     CommonModule,
     MaterialModule,

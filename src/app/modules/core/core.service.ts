@@ -12,23 +12,11 @@ export class CoreService {
 
   getStartergies(): Observable<any> {
     const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
-    return this.http
-      .get(`${API}/strategies/getAllStrategies/${id}`, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError((response) => of(response.error))
-      );
-  }
-
-  getHeaders(): HttpHeaders {
-    const token = JSON.parse(localStorage.getItem('token') || '{}');
-    return new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('content-type', 'application/json')
-      .set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${API}/strategies/getAllStrategies/${id}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((response) => of(response.error))
+    );
   }
 }

@@ -11,14 +11,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(user: any): Observable<any> {
-    return this.http
-      .post(`${API}/signin`, JSON.stringify(user), {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        tap((response) => this.storeToken(response)),
-        catchError((response) => of(response.error))
-      );
+    return this.http.post(`${API}/signin`, JSON.stringify(user)).pipe(
+      tap((response) => this.storeToken(response)),
+      catchError((response) => of(response.error))
+    );
   }
 
   logout(): Observable<any> {
@@ -31,9 +27,7 @@ export class AuthService {
 
   signup(user: any): Observable<any> {
     return this.http
-      .post(`${API}/signup`, JSON.stringify(user), {
-        headers: this.getHeaders(),
-      })
+      .post(`${API}/signup`, JSON.stringify(user))
       .pipe(catchError((reponse) => of(reponse.error)));
   }
 
@@ -58,5 +52,9 @@ export class AuthService {
       return false;
     }
     return true;
+  }
+
+  getToken(): any {
+    return JSON.parse(localStorage.getItem('token'));
   }
 }

@@ -31,7 +31,7 @@ export class StratergyComponent implements OnInit {
       .subscribe((data) => this.initDataSource(data));
   }
 
-  initDataSource(data: any): void {
+  initDataSource(data: any[]): void {
     this.dataToDisplay = data.map((d: any) => {
       return {
         name: d.name,
