@@ -35,6 +35,10 @@ export function reducer(
         loading: false,
         loaded: false,
       };
+    case StratergyActionTypes.AddStratergy:
+    case StratergyActionTypes.AddStratergySuccess:
+    case StratergyActionTypes.AddStratergyFail:
+      return state;
     default:
       return state;
   }

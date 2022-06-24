@@ -8,6 +8,9 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { AddStratergy } from '../../+state';
 
 const RangeValidator: ValidatorFn = (
   control: AbstractControl
@@ -24,7 +27,11 @@ const RangeValidator: ValidatorFn = (
 })
 export class StratergyAddComponent implements OnInit {
   stratergyFormGroup!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router
+  ) {}
 
   get indicator(): FormGroup {
     return this.fb.group({
@@ -57,15 +64,14 @@ export class StratergyAddComponent implements OnInit {
       ),
       direction: ['BUY'],
       timeFrame: [5],
-      condition: [''],
       orderType: ['MIS'],
       exchange: ['fut_fut'],
       dataSymbol: ['NIFTY_FUT'],
       orderSymbol: ['NIFTY_FUT'],
       target: [0],
-      targetunit: ['Rs'],
+      targetUnit: ['Rs'],
       stopLoss: [0],
-      stopLossunit: ['Rs'],
+      stopLossUnit: ['Rs'],
       quantity: [50],
       trailSLXPoint: [0],
       trailSLYPoint: [0],
@@ -115,7 +121,19 @@ export class StratergyAddComponent implements OnInit {
   }
 
   onAddStratergy(formValues: any) {
-    console.log('formvalues...', formValues);
+    const stratergyJson = {};
+    for (const key in formValues) {
+      if (key === 'time') {
+        stratergyJson['entryTime'] = formValues[key]?.startTime;
+        stratergyJson['exitTime'] = formValues[key]?.endTime;
+        continue;
+      }
+      stratergyJson[key] = formValues[key];
+    }
+    stratergyJson['active'] = true;
+    stratergyJson['user'] = JSON.parse(localStorage.getItem('user'));
+    console.log('add..', stratergyJson);
+    this.store.dispatch(new AddStratergy(stratergyJson));
   }
 
   onAddIndicator(event: any) {

@@ -19,4 +19,15 @@ export class CoreService {
       catchError((response) => of(response.error))
     );
   }
+
+  addStratergy(payload: any): Observable<any> {
+    return this.http
+      .post(`${API}/strategies/addStrategy`, JSON.stringify(payload))
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((response) => of(response.error))
+      );
+  }
 }
