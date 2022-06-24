@@ -1,7 +1,7 @@
 <div class="stratergy__form">
   <form [formGroup]="stratergyFormGroup">
     <div class="row mb-1">
-      <div class="col-6 col-md-6">
+      <div class="col-12 col-md-6">
         <shared-input
           [type]="'text'"
           [inputForm]="stratergyFormGroup"
@@ -9,7 +9,7 @@
           [label]="'Stratergy Name'"
         ></shared-input>
       </div>
-      <div class="col-6 row" formGroupName="time">
+      <div class="col-12 col-md-6 row" formGroupName="time">
         <div class="form__field col-6">
           <label style="margin-bottom: 0.5rem">Entry Time</label>
           <mat-form-field appearance="outline">
@@ -33,13 +33,15 @@
           </mat-form-field>
         </div>
         <ng-container *ngIf="stratergyFormGroup.get('time')?.hasError('range')">
-          <span>End Time cannot be before than Start Time.</span>
+          <span style="color: red; font-size: 12px"
+            >End Time cannot be before than Start Time.</span
+          >
         </ng-container>
       </div>
     </div>
 
     <div class="row mb-1">
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Exchange'"
           [optionsData]="exchangeOptions"
@@ -48,7 +50,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Data Symbol'"
           [optionsData]="getDataSymbolDropdownOptions()"
@@ -57,7 +59,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Order Symbol'"
           [optionsData]="getOrderSymbolDropdownOptions()"
@@ -69,7 +71,7 @@
     </div>
 
     <div class="row mb-1">
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Order Type'"
           [optionsData]="orderTypeOptions"
@@ -78,7 +80,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'number'"
           [inputForm]="stratergyFormGroup"
@@ -86,7 +88,7 @@
           [label]="'Quantity'"
         ></shared-input>
       </div>
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Direction'"
           [optionsData]="directionOptions"
@@ -95,7 +97,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Timeframe'"
           [optionsData]="timeframeOptions"
@@ -106,10 +108,11 @@
       </div>
     </div>
 
-    <div formArrayName="indicators">
+    <h3 style="margin: 0">Indicators:</h3>
+    <div formArrayName="indicators" class="indicators__container">
       <div *ngFor="let line of indicators.controls; let i = index">
         <div class="row mb-1" [formGroupName]="i">
-          <div class="form__field col-6 col-md-2">
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
             <label style="margin-bottom: 0.5rem">Indicator {{ i + 1 }}</label>
             <mat-form-field appearance="outline">
               <mat-select formControlName="indicator">
@@ -122,8 +125,8 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="form__field col-6 col-md-2">
-            <label style="margin-bottom: 0.5rem">Param {{ i + 1 }}</label>
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
+            <label style="margin-bottom: 0.5rem">Param {{ i + 1 }}.1</label>
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -133,8 +136,8 @@
               />
             </mat-form-field>
           </div>
-          <div class="form__field col-6 col-md-2">
-            <label style="margin-bottom: 0.5rem">Param {{ i + 1 }}</label>
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
+            <label style="margin-bottom: 0.5rem">Param {{ i + 1 }}.2</label>
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -144,7 +147,7 @@
               />
             </mat-form-field>
           </div>
-          <div class="form__field col-6 col-md-2">
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
             <label style="margin-bottom: 0.5rem">Operator {{ i + 1 }}</label>
             <mat-form-field appearance="outline">
               <mat-select formControlName="operator">
@@ -157,8 +160,8 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="form__field col-6 col-md-2">
-            <label style="margin-bottom: 0.5rem">Value 1</label>
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
+            <label style="margin-bottom: 0.5rem">Value (Buy)</label>
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -168,8 +171,8 @@
               />
             </mat-form-field>
           </div>
-          <div class="form__field col-6 col-md-2">
-            <label style="margin-bottom: 0.5rem">Value 2</label>
+          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
+            <label style="margin-bottom: 0.5rem">Value (Sell)</label>
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -189,7 +192,6 @@
           mat-raised-button
           color="primary"
           type="button"
-          style="padding: 0 3rem"
           (click)="addIndicator.emit()"
         >
           Add Indicator
@@ -198,7 +200,7 @@
     </div>
 
     <div class="row mb-1">
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Target Unit'"
           [optionsData]="targetUnitOptions"
@@ -207,7 +209,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'number'"
           [inputForm]="stratergyFormGroup"
@@ -215,7 +217,7 @@
           [label]="'Target Value'"
         ></shared-input>
       </div>
-      <div class="form__field col-6 col-md-3">
+      <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Stoploss Unit'"
           [optionsData]="stopLossUnitOptions"
@@ -224,7 +226,7 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'number'"
           [inputForm]="stratergyFormGroup"
@@ -235,7 +237,7 @@
     </div>
 
     <div class="row mb-1">
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'number'"
           [inputForm]="stratergyFormGroup"
@@ -243,7 +245,7 @@
           [label]="'Trail SL x point'"
         ></shared-input>
       </div>
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'number'"
           [inputForm]="stratergyFormGroup"

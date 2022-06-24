@@ -2,7 +2,7 @@
   <mat-sidenav-container>
     <mat-sidenav
       style="width: 240px; background-color: white; height: 100%"
-      [opened]="open"
+      opened
       mode="side"
     >
       <app-sidenav></app-sidenav>
@@ -15,7 +15,7 @@
               mat-icon-button
               aria-label="menu icon"
               style="margin-right: 1rem"
-              (click)="open = !open"
+              (click)="sidenav.toggle()"
             >
               <mat-icon>menu</mat-icon>
             </button>

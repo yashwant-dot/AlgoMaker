@@ -83,11 +83,22 @@ export class StratergyAddComponent implements OnInit {
     this.indicators.controls.forEach((control, index) => {
       control.get('operator').valueChanges.subscribe((val) => {
         if (val === 'signal') {
+          control.get('value1').reset();
+          control.get('value1').disable();
           control.get('value2').reset();
           control.get('value2').disable();
-          return;
+        } else {
+          if (this.stratergyFormGroup.get('direction').value === 'BUY') {
+            control.get('value1').enable();
+          } else if (
+            this.stratergyFormGroup.get('direction').value === 'SELL'
+          ) {
+            control.get('value2').enable();
+          } else {
+            control.get('value1').enable();
+            control.get('value2').enable();
+          }
         }
-        control.get('value2').enable();
       });
     });
     this.stratergyFormGroup.get('exchange').valueChanges.subscribe((val) => {
@@ -104,7 +115,7 @@ export class StratergyAddComponent implements OnInit {
   }
 
   onAddStratergy(formValues: any) {
-    console.log('formvalues...', this.stratergyFormGroup);
+    console.log('formvalues...', formValues);
   }
 
   onAddIndicator(event: any) {
