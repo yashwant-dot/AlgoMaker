@@ -124,8 +124,10 @@ export class StratergyAddComponent implements OnInit {
     const stratergyJson = {};
     for (const key in formValues) {
       if (key === 'time') {
-        stratergyJson['entryTime'] = formValues[key]?.startTime;
-        stratergyJson['exitTime'] = formValues[key]?.endTime;
+        stratergyJson['entryTime'] = this.formatTime(
+          formValues[key]?.startTime
+        );
+        stratergyJson['exitTime'] = this.formatTime(formValues[key]?.endTime);
         continue;
       }
       stratergyJson[key] = formValues[key];
@@ -138,5 +140,18 @@ export class StratergyAddComponent implements OnInit {
 
   onAddIndicator(event: any) {
     this.getIndicator.push(this.indicator);
+  }
+
+  formatTime(time: any): string {
+    const timeArr = time.split(':');
+    const today = new Date();
+    return new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      timeArr[0],
+      timeArr[1],
+      timeArr[2]
+    ).toISOString();
   }
 }

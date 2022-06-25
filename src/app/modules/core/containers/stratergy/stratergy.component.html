@@ -25,20 +25,22 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="instrument">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Instrument</th>
+        <ng-container matColumnDef="dataSymbol">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Symbol</th>
           <td mat-cell *matCellDef="let row">
-            <span aria-label="row.instrument" class="row-element__instrument"
-              >{{ row.instrument }}
+            <span aria-label="row.dataSymbol class=" row-element__dataSymbol
+              >{{ row.dataSymbol }}
             </span>
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="symbol">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+        <ng-container matColumnDef="orderSymbol">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Order Symbol
+          </th>
           <td mat-cell *matCellDef="let row">
-            <span aria-label="row.symbol" class="row-element__symbol"
-              >{{ row.symbol }}
+            <span aria-label="row.orderSymbol" class="row-element__orderSymbol"
+              >{{ row.orderSymbol }}
             </span>
           </td>
         </ng-container>

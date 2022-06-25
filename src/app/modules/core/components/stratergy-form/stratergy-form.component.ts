@@ -37,9 +37,7 @@ export class StratergyFormComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('values..', this.stratergyFormGroup.value);
-  }
+  ngOnInit(): void {}
 
   get indicators(): FormArray {
     return this.stratergyFormGroup.get('indicators') as FormArray;

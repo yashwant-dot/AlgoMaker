@@ -14,8 +14,8 @@ export class StratergyComponent implements OnInit {
   dataToDisplay: any[] = [];
   columnsToDisplay: string[] = [
     'name',
-    'instrument',
-    'symbol',
+    'dataSymbol',
+    'orderSymbol',
     'timeframe',
     'active',
     'action',
@@ -35,8 +35,8 @@ export class StratergyComponent implements OnInit {
     this.dataToDisplay = data.map((d: any) => {
       return {
         name: d.name,
-        instrument: d.instrument1,
-        symbol: d.instrument2,
+        dataSymbol: d.dataSymbol,
+        orderSymbol: d.orderSymbol,
         timeframe: d.timeFrame,
         active: d.active,
       };
