@@ -133,7 +133,7 @@ export class StratergyAddComponent implements OnInit {
     stratergyJson['active'] = true;
     stratergyJson['user'] = JSON.parse(localStorage.getItem('user'))._id;
     console.log('add..', stratergyJson);
-    // this.store.dispatch(new AddStratergy(stratergyJson));
+    this.store.dispatch(new AddStratergy(stratergyJson));
   }
 
   onAddIndicator(event: any) {
