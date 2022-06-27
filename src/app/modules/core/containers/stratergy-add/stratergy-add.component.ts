@@ -7,6 +7,7 @@ import {
   FormArray,
   AbstractControl,
   ValidationErrors,
+  FormControl,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -37,10 +38,10 @@ export class StratergyAddComponent implements OnInit {
     return this.fb.group({
       indicator: [''],
       param1: [''],
-      param2: [''],
+      param2: [],
       operator: [''],
-      value1: [''],
-      value2: [''],
+      value1: [{ value: '', disabled: this.checkDisable('SELL') }],
+      value2: [{ value: '', disabled: this.checkDisable('BUY') }],
     });
   }
 
@@ -54,7 +55,7 @@ export class StratergyAddComponent implements OnInit {
 
   initStratergyForm(): void {
     this.stratergyFormGroup = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       time: this.fb.group(
         {
           startTime: ['09:20:00'],
@@ -68,45 +69,30 @@ export class StratergyAddComponent implements OnInit {
       exchange: ['fut_fut'],
       dataSymbol: ['NIFTY_FUT'],
       orderSymbol: ['NIFTY_FUT'],
-      target: [0],
+      target: [0, [Validators.required, Validators.min(0)]],
       targetUnit: ['Rs'],
-      stopLoss: [0],
+      stopLoss: [0, [Validators.required, Validators.min(0)]],
       stopLossUnit: ['Rs'],
-      quantity: [50],
-      trailSLXPoint: [0],
-      trailSLYPoint: [0],
+      quantity: [50, [Validators.required, Validators.min(0)]],
+      trailSLXPoint: [0, [Validators.required, Validators.min(0)]],
+      trailSLYPoint: [0, [Validators.required, Validators.min(0)]],
       indicators: this.fb.array([
         this.fb.group({
           indicator: ['sma'],
           param1: [14],
-          param2: [''],
+          param2: [{ value: '', disabled: true }],
           operator: ['greater'],
           value1: [15000],
-          value2: [''],
+          value2: [{ value: '', disabled: true }],
         }),
       ]),
     });
-    this.indicators.controls.forEach((control, index) => {
-      control.get('operator').valueChanges.subscribe((val) => {
-        if (val === 'signal') {
-          control.get('value1').reset();
-          control.get('value1').disable();
-          control.get('value2').reset();
-          control.get('value2').disable();
-        } else {
-          if (this.stratergyFormGroup.get('direction').value === 'BUY') {
-            control.get('value1').enable();
-          } else if (
-            this.stratergyFormGroup.get('direction').value === 'SELL'
-          ) {
-            control.get('value2').enable();
-          } else {
-            control.get('value1').enable();
-            control.get('value2').enable();
-          }
-        }
-      });
+
+    this.onIndicatorsValueChanges();
+    this.stratergyFormGroup.get('direction').valueChanges.subscribe((val) => {
+      this.toggleIndicatorValueField(val);
     });
+
     this.stratergyFormGroup.get('exchange').valueChanges.subscribe((val) => {
       this.stratergyFormGroup.get('dataSymbol').reset();
       this.stratergyFormGroup.get('orderSymbol').reset();
@@ -118,6 +104,41 @@ export class StratergyAddComponent implements OnInit {
 
   get indicators(): FormArray {
     return this.stratergyFormGroup.get('indicators') as FormArray;
+  }
+
+  onIndicatorsValueChanges() {
+    this.indicators.controls.forEach((control, index) => {
+      console.log('control...', control.value);
+      control.get('operator').valueChanges.subscribe((val) => {
+        if (val === 'signal') {
+          control.get('value1').reset();
+          control.get('value1').disable();
+          control.get('value2').reset();
+          control.get('value2').disable();
+        } else {
+          if (this.stratergyFormGroup.get('direction').value === 'BUY') {
+            control.get('value1').enable();
+            control.get('value2').disable();
+          } else if (
+            this.stratergyFormGroup.get('direction').value === 'SELL'
+          ) {
+            control.get('value1').disable();
+            control.get('value2').enable();
+          } else {
+            control.get('value1').enable();
+            control.get('value2').enable();
+          }
+        }
+      });
+
+      control.get('indicator').valueChanges.subscribe((val) => {
+        if (val !== 'supertrend') {
+          control.get('param2').disable();
+        } else {
+          control.get('param2').enable();
+        }
+      });
+    });
   }
 
   onAddStratergy(formValues: any) {
@@ -140,6 +161,7 @@ export class StratergyAddComponent implements OnInit {
 
   onAddIndicator(event: any) {
     this.getIndicator.push(this.indicator);
+    this.onIndicatorsValueChanges();
   }
 
   formatTime(time: any): string {
@@ -153,5 +175,31 @@ export class StratergyAddComponent implements OnInit {
       timeArr[1],
       timeArr[2]
     ).toISOString();
+  }
+
+  toggleIndicatorValueField(value: string) {
+    this.indicators.controls.forEach((control) => {
+      if (value === 'BUY') {
+        control.get('value1').enable();
+        this.resetControl(control, 'value2');
+        control.get('value2').disable();
+      } else if (value === 'SELL') {
+        this.resetControl(control, 'value1');
+        control.get('value1').disable();
+        control.get('value2').enable();
+      } else {
+        control.get('value1').enable();
+        control.get('value2').enable();
+      }
+    });
+  }
+
+  resetControl(control: AbstractControl, field: string) {
+    control.get(field).reset();
+  }
+
+  checkDisable(value: string): boolean {
+    if (this.stratergyFormGroup.get('direction').value === value) return true;
+    return false;
   }
 }

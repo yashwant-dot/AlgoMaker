@@ -14,7 +14,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     private router: Router,
     private observer: BreakpointObserver
   ) {}
-  screenWidth: number;
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
   ngOnInit(): void {}

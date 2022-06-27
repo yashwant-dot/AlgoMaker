@@ -5,19 +5,89 @@
 
   <div class="navList">
     <ul>
+      <li class="menuTitle">Menu</li>
       <li class="listI">
-        <a routerLink="./stratergy" routerLinkActive="activeLink">Stratergy</a>
+        <a routerLink="./dashboard" routerLinkActive="activeLink">
+          <fa-icon [icon]="faHome" class="icon"></fa-icon>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="menuTitle">Trading</li>
+      <li class="listI">
+        <a routerLink="./stratergy" routerLinkActive="activeLink">
+          <fa-icon [icon]="faBullseye" class="icon"></fa-icon>
+          <span>Stratergy</span>
+        </a>
       </li>
       <li class="listI">
-        <a routerLink="./account" routerLinkActive="activeLink">Account</a>
+        <a routerLink="./account" routerLinkActive="activeLink">
+          <fa-icon [icon]="faMoneyBillTransfer" class="icon"></fa-icon
+          ><span> Account </span>
+        </a>
       </li>
       <li class="listI">
-        <a routerLink="/admin/position" routerLinkActive="activeLink"
-          >Position</a
+        <a routerLink="./position" routerLinkActive="activeLink">
+          <fa-icon [icon]="faLocationDot" class="icon"></fa-icon
+          ><span> Position </span>
+        </a>
+      </li>
+      <li class="listI">
+        <a routerLink="./trade" routerLinkActive="activeLink">
+          <fa-icon [icon]="faArrowTrendUp" class="icon"></fa-icon
+          ><span> Trade </span>
+        </a>
+      </li>
+      <li class="listI">
+        <a
+          data-bs-toggle="collapse"
+          routerLink="/admin/crypto"
+          aria-expanded="false"
+          data-bs-target="#collapseExample"
+          aria-controls="collapseExample"
+          style="display: flex"
         >
+          <span>
+            <fa-icon [icon]="faBitcoinSign" class="icon"></fa-icon
+            ><span> Crypto </span>
+          </span>
+          <fa-icon [icon]="faAngleDown" style="margin-left: auto"></fa-icon>
+        </a>
+        <div class="collapse" id="collapseExample">
+          <ul>
+            <li class="submenuItem">
+              <a routerLink="./stratergy" routerLinkActive="activeLink"
+                >Wallet</a
+              >
+            </li>
+            <li class="submenuItem">
+              <a routerLink="./account" routerLinkActive="activeLink"
+                >Lending</a
+              >
+            </li>
+            <li class="submenuItem">
+              <a routerLink="./account" routerLinkActive="activeLink">KYC</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="menuTitle">Account</li>
+      <li class="listI">
+        <a routerLink="./orders" routerLinkActive="activeLink">
+          <fa-icon [icon]="faListCheck" class="icon"></fa-icon
+          ><span> Orders </span>
+        </a>
       </li>
       <li class="listI">
-        <a routerLink="/admin/trade" routerLinkActive="activeLink">Trade</a>
+        <a routerLink="./invoices" routerLinkActive="activeLink">
+          <fa-icon [icon]="faFileInvoice" class="icon"></fa-icon
+          ><span> Invoices </span>
+        </a>
+      </li>
+      <li class="listI">
+        <a routerLink="./contacts" routerLinkActive="activeLink">
+          <fa-icon [icon]="faAddressBook" class="icon"></fa-icon
+          ><span> Contacts </span>
+        </a>
       </li>
     </ul>
   </div>

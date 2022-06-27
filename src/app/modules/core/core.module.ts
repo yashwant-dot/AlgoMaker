@@ -17,6 +17,8 @@ import { SidenavComponent, StratergyFormComponent } from './components';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CryptoComponent } from './containers/crypto/crypto.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -27,6 +29,7 @@ import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
     TradeComponent,
     AccountComponent,
     StratergyAddComponent,
+    CryptoComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
     StoreModule.forFeature(MANAGE_CORE_FEATURE_KEY, reducers),
     EffectsModule.forFeature(effects),
   ],

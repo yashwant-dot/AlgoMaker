@@ -17,6 +17,9 @@
       <ng-container *ngIf="inputForm.get(inputControl)?.hasError('required')">
         {{ label }} is required
       </ng-container>
+      <ng-container *ngIf="inputForm.get(inputControl)?.hasError('min')">
+        Minimum value is 0
+      </ng-container>
     </mat-error>
   </mat-form-field>
 </div>

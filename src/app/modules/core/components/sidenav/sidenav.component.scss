@@ -1,10 +1,9 @@
 .mainSidenav {
   height: 100%;
-  background: #2a3041;
   padding: 1rem;
 
   .logo {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     text-align: center;
     color: white;
 
@@ -18,12 +17,28 @@
       list-style: none;
       padding: 0;
 
+      li {
+        .icon {
+          margin-right: 0.5rem;
+        }
+      }
+
+      li.menuTitle {
+        color: #6a7187;
+        padding: 0.5rem 0;
+      }
+
+      li.submenuItem a {
+        padding: 0.625rem 0;
+        padding-left: 2rem;
+        color: #79829c;
+      }
+
       li a {
         color: #a6b0cf;
         display: block;
-        padding: 0.625rem 1.5rem;
+        padding: 0.625rem 1rem;
         position: relative;
-        font-size: 1rem;
         transition: all 0.4s;
 
         &:hover {

@@ -1,7 +1,7 @@
 <div class="main__container">
   <mat-sidenav-container>
     <mat-sidenav
-      style="width: 240px; background-color: white; height: 100%"
+      style="width: 240px; background-color: #2a3041; height: 100%"
       opened
       mode="side"
     >
@@ -21,15 +21,19 @@
             </button>
           </div>
           <div>
-            <button
-              mat-button
-              aria-label="logout icon"
-              class="logoutButton"
-              (click)="logout()"
-            >
-              <span style="margin-right: 0.5rem">LOGOUT</span>
-              <mat-icon>logout</mat-icon>
+            <button mat-button [matMenuTriggerFor]="menu" class="toolbar__menu">
+              <div class="toolbar__menu-flex">
+                <span class="toolbar__menu-avatar">
+                  <mat-icon>account_circle</mat-icon>
+                  <span>Test</span>
+                </span>
+                <mat-icon>expand_more</mat-icon>
+              </div>
             </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>Profile</button>
+              <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
           </div>
         </div>
       </mat-toolbar>

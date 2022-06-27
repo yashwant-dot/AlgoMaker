@@ -24,6 +24,26 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__menu {
+    min-width: 130px;
+
+    &-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-avatar {
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
   .logoutButton {
     width: 100%;
 

@@ -7,6 +7,7 @@ import {
   PositionComponent,
   TradeComponent,
   StratergyAddComponent,
+  CryptoComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'stratergy/add',
         component: StratergyAddComponent,
+      },
+      {
+        path: 'crypto',
+        component: CryptoComponent,
       },
     ],
   },

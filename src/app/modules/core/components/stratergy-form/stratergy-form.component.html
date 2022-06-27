@@ -137,7 +137,14 @@
             </mat-form-field>
           </div>
           <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
-            <label style="margin-bottom: 0.5rem">Param {{ i + 1 }}.2</label>
+            <label
+              style="margin-bottom: 0.5rem"
+              [ngClass]="{
+                disable: indicators.at(i).get('param2').disabled === true
+              }"
+            >
+              Param {{ i + 1 }}.2
+            </label>
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -161,7 +168,13 @@
             </mat-form-field>
           </div>
           <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
-            <label style="margin-bottom: 0.5rem">Value (Buy)</label>
+            <label
+              style="margin-bottom: 0.5rem"
+              [ngClass]="{
+                disable: indicators.at(i).get('value1').disabled === true
+              }"
+              >Value (Buy)</label
+            >
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -172,7 +185,13 @@
             </mat-form-field>
           </div>
           <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
-            <label style="margin-bottom: 0.5rem">Value (Sell)</label>
+            <label
+              style="margin-bottom: 0.5rem"
+              [ngClass]="{
+                disable: indicators.at(i).get('value2').disabled === true
+              }"
+              >Value (Sell)</label
+            >
             <mat-form-field appearance="outline">
               <input
                 matInput
@@ -256,19 +275,12 @@
     </div>
 
     <div class="d-flex justify-content-end">
-      <!-- <button
-        mat-raised-button
-        type="button"
-        style="padding: 0 3rem; margin-right: 1rem"
-        (click)="onClose()"
-      >
-        Cancel
-      </button> -->
       <button
         mat-raised-button
         color="primary"
         type="button"
         style="padding: 0 3rem"
+        [disabled]="!stratergyFormGroup.valid"
         (click)="addStratergy.emit(stratergyFormGroup.getRawValue())"
       >
         Add

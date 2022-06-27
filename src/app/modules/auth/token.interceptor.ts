@@ -4,18 +4,20 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from './services/auth.service';
-
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authServ: AuthService) {}
+  constructor(private authServ: AuthService, private router: Router) {}
 
   intercept(
-    request: HttpRequest<unknown>,
+    request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  ): Observable<HttpEvent<any>> {
     // if not logged IN
     request = request.clone({
       setHeaders: {
@@ -33,6 +35,14 @@ export class TokenInterceptor implements HttpInterceptor {
         },
       });
     }
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((errorData) => {
+        if (errorData.status === 401) {
+          this.authServ.removeTokens();
+          this.router.navigate(['login']);
+        }
+        return of(errorData);
+      })
+    ) as Observable<HttpEvent<any>>;
   }
 }

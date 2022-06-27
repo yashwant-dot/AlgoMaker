@@ -4,3 +4,4 @@ export * from './stratergy/stratergy.component';
 export * from './position/position.component';
 export * from './trade/trade.component';
 export * from './stratergy-add/stratergy-add.component';
+export * from './crypto/crypto.component';
