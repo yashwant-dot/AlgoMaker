@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormGroup,
-  FormBuilder,
-  FormArray,
   AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AddStratergy } from '../../+state';
+import { getStratergyToUpdate, UpdateStratergy } from '../../+state';
 import { CoreService } from '../../core.service';
+
 @Component({
-  selector: 'app-stratergy-add',
-  templateUrl: './stratergy-add.component.html',
-  styleUrls: ['./stratergy-add.component.scss'],
+  selector: 'app-stratergy-update',
+  templateUrl: './stratergy-update.component.html',
+  styleUrls: ['./stratergy-update.component.scss'],
 })
-export class StratergyAddComponent implements OnInit {
-  stratergyFormGroup!: FormGroup;
+export class StratergyUpdateComponent implements OnInit {
+  stratergyFormGroup: FormGroup;
+  stratergyID: string;
   breadcrumbItems: any[] = [
     { label: 'Stratergy', link: 'admin/stratergy', active: false },
-    { label: 'Add Stratergy', active: true },
+    { label: 'Update Stratergy', active: true },
   ];
-  stratergyFormData: any = {};
   constructor(
-    private fb: FormBuilder,
     private store: Store,
-    private coreServ: CoreService
+    private coreServ: CoreService,
+    private fb: FormBuilder
   ) {}
+
+  get indicators(): FormArray {
+    return this.stratergyFormGroup.get('indicators') as FormArray;
+  }
 
   get indicator(): FormGroup {
     return this.fb.group({
@@ -37,18 +42,18 @@ export class StratergyAddComponent implements OnInit {
     });
   }
 
-  get getIndicator(): FormArray {
-    return <FormArray>this.stratergyFormGroup.get('indicators');
-  }
-
   ngOnInit(): void {
-    this.initStratergyForm();
+    this.store.select(getStratergyToUpdate).subscribe((data) => {
+      if (data) {
+        this.stratergyID = data._id;
+        this.initForm(data);
+      }
+    });
   }
 
-  initStratergyForm(): void {
-    this.stratergyFormGroup = this.coreServ.initStratergyForm(
-      this.stratergyFormData
-    );
+  initForm(data: any) {
+    console.log('data..', data);
+    this.stratergyFormGroup = this.coreServ.initStratergyForm(data);
     this.onIndicatorsValueChanges();
     this.stratergyFormGroup.get('direction').valueChanges.subscribe((val) => {
       this.toggleIndicatorValueField(val);
@@ -61,10 +66,6 @@ export class StratergyAddComponent implements OnInit {
     this.stratergyFormGroup.get('dataSymbol').valueChanges.subscribe((val) => {
       this.stratergyFormGroup.get('orderSymbol').reset();
     });
-  }
-
-  get indicators(): FormArray {
-    return this.stratergyFormGroup.get('indicators') as FormArray;
   }
 
   onIndicatorsValueChanges() {
@@ -101,7 +102,7 @@ export class StratergyAddComponent implements OnInit {
     });
   }
 
-  onAddStratergy(formValues: any) {
+  onUpdateStratergy(formValues: any) {
     const stratergyJson = {};
     for (const key in formValues) {
       if (key === 'time') {
@@ -114,25 +115,12 @@ export class StratergyAddComponent implements OnInit {
       stratergyJson[key] = formValues[key];
     }
     stratergyJson['active'] = true;
-    stratergyJson['user'] = JSON.parse(localStorage.getItem('user'))._id;
-    this.store.dispatch(new AddStratergy(stratergyJson));
+    this.store.dispatch(new UpdateStratergy(stratergyJson, this.stratergyID));
   }
 
   onAddIndicator(event: any) {
-    this.getIndicator.push(this.indicator);
+    this.indicators.push(this.indicator);
     this.onIndicatorsValueChanges();
-  }
-
-  formatTime(time: any): string {
-    const timeArr = time.split(':');
-    const today = new Date();
-    return new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-      timeArr[0],
-      timeArr[1]
-    ).toISOString();
   }
 
   toggleIndicatorValueField(value: string) {
@@ -159,5 +147,17 @@ export class StratergyAddComponent implements OnInit {
   checkDisable(value: string): boolean {
     if (this.stratergyFormGroup.get('direction').value === value) return true;
     return false;
+  }
+
+  formatTime(time: any): string {
+    const timeArr = time.split(':');
+    const today = new Date();
+    return new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      timeArr[0],
+      timeArr[1]
+    ).toISOString();
   }
 }

@@ -32,6 +32,7 @@ export class StratergyFormComponent implements OnInit {
   stopLossUnitOptions = stopLossUnitOptions;
   exchangeOptions = exchangeOptions;
   @Input() stratergyFormGroup!: FormGroup;
+  @Input() isUpdate: boolean = false;
   @Output() addStratergy: EventEmitter<any> = new EventEmitter();
   @Output() addIndicator: EventEmitter<any> = new EventEmitter();
 

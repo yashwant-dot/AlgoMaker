@@ -11,6 +11,10 @@ import {
   TradeComponent,
   AccountComponent,
   StratergyAddComponent,
+  CryptoComponent,
+  DashboardComponent,
+  OrdersComponent,
+  StratergyUpdateComponent,
 } from './containers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidenavComponent, StratergyFormComponent } from './components';
@@ -18,7 +22,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CryptoComponent } from './containers/crypto/crypto.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -30,6 +33,9 @@ import { CryptoComponent } from './containers/crypto/crypto.component';
     AccountComponent,
     StratergyAddComponent,
     CryptoComponent,
+    DashboardComponent,
+    OrdersComponent,
+    StratergyUpdateComponent,
   ],
   imports: [
     CommonModule,

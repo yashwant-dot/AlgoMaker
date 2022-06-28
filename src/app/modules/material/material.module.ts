@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 
 const modules = [
   MatButtonModule,
@@ -36,6 +37,7 @@ const modules = [
   MatTooltipModule,
   MatListModule,
   MatPaginatorModule,
+  MatChipsModule,
 ];
 
 @NgModule({

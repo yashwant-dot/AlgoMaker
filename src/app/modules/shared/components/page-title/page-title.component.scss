@@ -1,0 +1,15 @@
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  nav ol {
+    margin: 0;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin: 0;
+  }
+}

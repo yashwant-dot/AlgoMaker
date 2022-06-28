@@ -4,6 +4,7 @@ export interface StratergyState {
   data: any[];
   loading: boolean;
   loaded: boolean;
+  stratergyToUpdate?: any;
 }
 
 export const initialStratergyState: StratergyState = {
@@ -39,6 +40,12 @@ export function reducer(
     case StratergyActionTypes.AddStratergySuccess:
     case StratergyActionTypes.AddStratergyFail:
       return state;
+    case StratergyActionTypes.DeleteStratergy:
+    case StratergyActionTypes.DeleteStratergySuccess:
+    case StratergyActionTypes.DeleteStratergyFail:
+      return state;
+    case StratergyActionTypes.SaveStratergyToUpdate:
+      return { ...state, stratergyToUpdate: action.payload };
     default:
       return state;
   }

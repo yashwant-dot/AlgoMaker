@@ -10,6 +10,10 @@ import {
   AddStratergy,
   AddStratergySuccess,
   AddStratergyFail,
+  DeleteStratergy,
+  DeleteStratergySuccess,
+  ToggleStratergy,
+  UpdateStratergy,
 } from '../actions';
 import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -46,6 +50,49 @@ export class StratergyEffects {
         }),
         catchError((error) => {
           return of(new AddStratergyFail());
+        })
+      );
+    })
+  );
+
+  @Effect() deleteStratergy$ = this.actions$.pipe(
+    ofType<DeleteStratergy>(StratergyActionTypes.DeleteStratergy),
+    switchMap((action) => {
+      return this.coreService.deleteStratergy(action.payload).pipe(
+        mergeMap((data) => {
+          return [new DeleteStratergySuccess(), new GetStratergy()];
+        }),
+        catchError((error) => {
+          return of(error);
+        })
+      );
+    })
+  );
+
+  @Effect() toggleStratergy$ = this.actions$.pipe(
+    ofType<ToggleStratergy>(StratergyActionTypes.ToggleStratergy),
+    switchMap((action) => {
+      return this.coreService.toggleStratergy(action.payload).pipe(
+        mergeMap((data) => {
+          return [new GetStratergy()];
+        }),
+        catchError((error) => {
+          return of(error);
+        })
+      );
+    })
+  );
+
+  @Effect() updateStratergy$ = this.actions$.pipe(
+    ofType<UpdateStratergy>(StratergyActionTypes.UpdateStratergy),
+    switchMap((action) => {
+      return this.coreService.updateStratergy(action.payload, action.id).pipe(
+        mergeMap((data) => {
+          this.router.navigate(['admin/stratergy']);
+          return [new GetStratergy()];
+        }),
+        catchError((error) => {
+          return of(error);
         })
       );
     })

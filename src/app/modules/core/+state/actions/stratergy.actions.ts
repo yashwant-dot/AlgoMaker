@@ -7,6 +7,14 @@ export enum StratergyActionTypes {
   AddStratergy = '[Stratergy] Add Stratergy Fail',
   AddStratergySuccess = '[Stratergy] Add Stratergy Success',
   AddStratergyFail = '[Stratergy] Add Stratergy Fail',
+  DeleteStratergy = '[Stratergy] Delete Stratergy Fail',
+  DeleteStratergySuccess = '[Stratergy] Delete Stratergy Success',
+  DeleteStratergyFail = '[Stratergy] Delete Stratergy Fail',
+  ToggleStratergy = '[Stratergy] Toggle Stratergy',
+  SaveStratergyToUpdate = '[Stratergy] Save Stratergy To Update',
+  UpdateStratergy = '[Stratergy] Update Stratergy Fail',
+  UpdateStratergySuccess = '[Stratergy] Update Stratergy Success',
+  UpdateStratergyFail = '[Stratergy] Update Stratergy Fail',
 }
 
 export class GetStratergy implements Action {
@@ -35,6 +43,41 @@ export class AddStratergySuccess implements Action {
 export class AddStratergyFail implements Action {
   readonly type = StratergyActionTypes.AddStratergyFail;
 }
+export class DeleteStratergy implements Action {
+  readonly type = StratergyActionTypes.DeleteStratergy;
+  constructor(public payload: any) {}
+}
+
+export class DeleteStratergySuccess implements Action {
+  readonly type = StratergyActionTypes.DeleteStratergySuccess;
+}
+
+export class DeleteStratergyFail implements Action {
+  readonly type = StratergyActionTypes.DeleteStratergyFail;
+}
+
+export class ToggleStratergy implements Action {
+  readonly type = StratergyActionTypes.ToggleStratergy;
+  constructor(public payload: any) {}
+}
+
+export class SaveStratergyToUpdate implements Action {
+  readonly type = StratergyActionTypes.SaveStratergyToUpdate;
+  constructor(public payload: any) {}
+}
+
+export class UpdateStratergy implements Action {
+  readonly type = StratergyActionTypes.UpdateStratergy;
+  constructor(public payload: any, public id: any) {}
+}
+
+export class UpdateStratergySuccess implements Action {
+  readonly type = StratergyActionTypes.UpdateStratergySuccess;
+}
+
+export class UpdateStratergyFail implements Action {
+  readonly type = StratergyActionTypes.UpdateStratergyFail;
+}
 
 export type StratergyActions =
   | GetStratergy
@@ -42,4 +85,12 @@ export type StratergyActions =
   | GetStratergyFail
   | AddStratergy
   | AddStratergySuccess
-  | AddStratergyFail;
+  | AddStratergyFail
+  | DeleteStratergy
+  | DeleteStratergySuccess
+  | DeleteStratergyFail
+  | ToggleStratergy
+  | SaveStratergyToUpdate
+  | UpdateStratergy
+  | UpdateStratergySuccess
+  | UpdateStratergyFail;

@@ -14,3 +14,10 @@ export const getStratergies = createSelector(
     return state ? state.data : null;
   }
 );
+
+export const getStratergyToUpdate = createSelector(
+  getStartergyState,
+  (state: StratergyState): any => {
+    return state && state.stratergyToUpdate ? state.stratergyToUpdate : null;
+  }
+);

@@ -5,3 +5,6 @@ export * from './position/position.component';
 export * from './trade/trade.component';
 export * from './stratergy-add/stratergy-add.component';
 export * from './crypto/crypto.component';
+export * from './dashboard/dashboard.component';
+export * from './orders/orders.component';
+export * from './stratergy-update/stratergy-update.component';

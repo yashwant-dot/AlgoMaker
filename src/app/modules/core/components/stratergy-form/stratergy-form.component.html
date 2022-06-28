@@ -17,7 +17,7 @@
               matInput
               type="time"
               autocomplete="off"
-              formControlName="startTime"
+              formControlName="entryTime"
             />
           </mat-form-field>
         </div>
@@ -28,7 +28,7 @@
               matInput
               type="time"
               autocomplete="off"
-              formControlName="endTime"
+              formControlName="exitTime"
             />
           </mat-form-field>
         </div>
@@ -283,7 +283,7 @@
         [disabled]="!stratergyFormGroup.valid"
         (click)="addStratergy.emit(stratergyFormGroup.getRawValue())"
       >
-        Add
+        {{ isUpdate ? "Update" : "Add" }}
       </button>
     </div>
   </form>
