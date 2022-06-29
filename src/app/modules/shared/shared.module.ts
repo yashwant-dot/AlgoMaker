@@ -7,9 +7,15 @@ import {
   DropdownComponent,
   InputComponent,
   PageTitleComponent,
+  SnackbarComponent,
 } from './components';
 @NgModule({
-  declarations: [DropdownComponent, InputComponent, PageTitleComponent],
+  declarations: [
+    DropdownComponent,
+    InputComponent,
+    PageTitleComponent,
+    SnackbarComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -17,6 +23,11 @@ import {
     ReactiveFormsModule,
     RouterModule,
   ],
-  exports: [DropdownComponent, InputComponent, PageTitleComponent],
+  exports: [
+    DropdownComponent,
+    InputComponent,
+    PageTitleComponent,
+    SnackbarComponent,
+  ],
 })
 export class SharedModule {}

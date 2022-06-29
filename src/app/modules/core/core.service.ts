@@ -120,7 +120,11 @@ export class CoreService {
           ? stratergyData.orderType
           : 'MIS',
       ],
-      exchange: ['fut_fut'],
+      exchange: [
+        stratergyData && stratergyData.exchange
+          ? stratergyData.exchange
+          : 'fut_fut',
+      ],
       dataSymbol: [
         stratergyData && stratergyData.dataSymbol
           ? stratergyData.dataSymbol

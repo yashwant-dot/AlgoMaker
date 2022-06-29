@@ -43,6 +43,7 @@ export class StratergyEffects {
   @Effect() addStratergy$ = this.actions$.pipe(
     ofType<AddStratergy>(StratergyActionTypes.AddStratergy),
     switchMap((action) => {
+      console.log(action.payload);
       return this.coreService.addStratergy(action.payload).pipe(
         mergeMap((data) => {
           this.router.navigate(['admin/stratergy']);

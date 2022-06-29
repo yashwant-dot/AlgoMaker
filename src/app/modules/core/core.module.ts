@@ -22,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MANAGE_CORE_FEATURE_KEY, reducers, effects } from './+state';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
   declarations: [
     MainComponent,
@@ -45,6 +46,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgApexchartsModule,
     StoreModule.forFeature(MANAGE_CORE_FEATURE_KEY, reducers),
     EffectsModule.forFeature(effects),
   ],

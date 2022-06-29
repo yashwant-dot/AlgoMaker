@@ -1,0 +1,27 @@
+<div class="snackbar">
+  <div class="snackbar__content">
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="type === 'error' || type === 'warning'">
+        <mat-icon class="snackbar--error">warning</mat-icon>
+        <span id="warning" class="visually-hidden">Warning</span>
+      </ng-container>
+      <ng-container *ngSwitchCase="type === 'success'">
+        <mat-icon class="snackbar--success">check_circle</mat-icon>
+        <span id="success" class="visually-hidden">Success</span>
+      </ng-container>
+      <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+    <p class="snackbar__message">{{ message }}</p>
+  </div>
+
+  <div class="snackbar__button">
+    <button
+      mat-button
+      color="primary"
+      (click)="snackBarRef.dismissWithAction()"
+      *ngIf="isEnableUndo"
+    >
+      undo
+    </button>
+  </div>
+</div>

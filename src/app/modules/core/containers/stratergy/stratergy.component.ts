@@ -10,6 +10,7 @@ import {
   ToggleStratergy,
 } from '../../+state';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/modules/shared/shared.service';
 @Component({
   selector: 'app-stratergy',
   templateUrl: './stratergy.component.html',
@@ -29,7 +30,11 @@ export class StratergyComponent implements OnInit {
   ];
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private sharedServ: SharedService
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetStratergy());

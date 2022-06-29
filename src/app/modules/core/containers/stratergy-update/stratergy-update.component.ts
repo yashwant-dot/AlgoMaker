@@ -54,6 +54,7 @@ export class StratergyUpdateComponent implements OnInit {
   initForm(data: any) {
     console.log('data..', data);
     this.stratergyFormGroup = this.coreServ.initStratergyForm(data);
+    console.log(this.stratergyFormGroup);
     this.onIndicatorsValueChanges();
     this.stratergyFormGroup.get('direction').valueChanges.subscribe((val) => {
       this.toggleIndicatorValueField(val);
