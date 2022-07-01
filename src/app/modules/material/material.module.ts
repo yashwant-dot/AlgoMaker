@@ -18,7 +18,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatNativeDateModule } from '@angular/material/core';
 const modules = [
   MatButtonModule,
   MatCardModule,
@@ -38,6 +39,8 @@ const modules = [
   MatListModule,
   MatPaginatorModule,
   MatChipsModule,
+  MatTabsModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({

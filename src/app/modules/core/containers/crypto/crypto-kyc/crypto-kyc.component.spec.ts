@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CryptoComponent } from './crypto.component';
+import { CryptoKycComponent } from './crypto-kyc.component';
 
-describe('CryptoComponent', () => {
-  let component: CryptoComponent;
-  let fixture: ComponentFixture<CryptoComponent>;
+describe('CryptoKycComponent', () => {
+  let component: CryptoKycComponent;
+  let fixture: ComponentFixture<CryptoKycComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CryptoComponent ]
+      declarations: [ CryptoKycComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CryptoComponent);
+    fixture = TestBed.createComponent(CryptoKycComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

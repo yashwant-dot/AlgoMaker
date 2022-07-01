@@ -73,6 +73,10 @@ a {
   }
 }
 
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5rem 0;
+}
+
 @media (max-width: 700px) {
   .auth {
     &__container {

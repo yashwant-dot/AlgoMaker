@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   login(formvalue: any): void {
     this.authService.login(formvalue).subscribe((data) => {
       if (!data.error) {
-        this.router.navigate(['/admin/stratergy']);
+        this.router.navigate(['/admin/dashboard']);
         return;
       }
       alert(data.error);

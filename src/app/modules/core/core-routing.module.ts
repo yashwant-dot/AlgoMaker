@@ -7,10 +7,16 @@ import {
   PositionComponent,
   TradeComponent,
   StratergyAddComponent,
-  CryptoComponent,
+  CryptoWalletComponent,
+  CryptoKycComponent,
+  CryptoLendingComponent,
   DashboardComponent,
   OrdersComponent,
   StratergyUpdateComponent,
+  InvoicesDetailsComponent,
+  InvoicesListComponent,
+  ContactsDetailsComponent,
+  ContactsListComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -30,8 +36,20 @@ const routes: Routes = [
         component: StratergyAddComponent,
       },
       {
-        path: 'crypto',
-        component: CryptoComponent,
+        path: 'stratergy/update',
+        component: StratergyUpdateComponent,
+      },
+      {
+        path: 'crypto/wallet',
+        component: CryptoWalletComponent,
+      },
+      {
+        path: 'crypto/kyc',
+        component: CryptoKycComponent,
+      },
+      {
+        path: 'crypto/lending',
+        component: CryptoLendingComponent,
       },
       {
         path: 'dashboard',
@@ -42,8 +60,20 @@ const routes: Routes = [
         component: OrdersComponent,
       },
       {
-        path: 'stratergy/update',
-        component: StratergyUpdateComponent,
+        path: 'invoices',
+        component: InvoicesListComponent,
+      },
+      {
+        path: 'invoices/details',
+        component: InvoicesDetailsComponent,
+      },
+      {
+        path: 'contacts',
+        component: ContactsListComponent,
+      },
+      {
+        path: 'contacts/details',
+        component: ContactsDetailsComponent,
       },
     ],
   },
