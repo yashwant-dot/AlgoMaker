@@ -3,16 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   MainComponent,
   AccountComponent,
-  StratergyComponent,
   PositionComponent,
   TradeComponent,
-  StratergyAddComponent,
   CryptoWalletComponent,
   CryptoKycComponent,
   CryptoLendingComponent,
   DashboardComponent,
   OrdersComponent,
-  StratergyUpdateComponent,
   InvoicesDetailsComponent,
   InvoicesListComponent,
   ContactsDetailsComponent,
@@ -28,16 +25,9 @@ const routes: Routes = [
       { path: 'position', component: PositionComponent },
       { path: 'trade', component: TradeComponent },
       {
-        path: 'stratergy',
-        component: StratergyComponent,
-      },
-      {
-        path: 'stratergy/add',
-        component: StratergyAddComponent,
-      },
-      {
-        path: 'stratergy/update',
-        component: StratergyUpdateComponent,
+        path: 'strategy',
+        loadChildren: () =>
+          import('./strategy/strategy.module').then((m) => m.StrategyModule),
       },
       {
         path: 'crypto/wallet',

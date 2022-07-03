@@ -1,0 +1,15 @@
+<div class="strategy-add">
+  <shared-page-title
+    [breadcrumbItems]="breadcrumbItems"
+    [title]="'Add Strategy'"
+  ></shared-page-title>
+  <div class="mat-elevation-z8">
+    <div class="strategy-add__container">
+      <app-strategy-form
+        [strategyFormGroup]="strategyFormGroup"
+        (addStrategy)="onAddStrategy($event)"
+        (addIndicator)="onAddIndicator($event)"
+      ></app-strategy-form>
+    </div>
+  </div>
+</div>

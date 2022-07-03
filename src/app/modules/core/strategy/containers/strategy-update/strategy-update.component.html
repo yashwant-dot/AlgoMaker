@@ -1,0 +1,16 @@
+<div class="strategy-update">
+  <shared-page-title
+    [breadcrumbItems]="breadcrumbItems"
+    [title]="'Update Strategy'"
+  ></shared-page-title>
+  <div class="mat-elevation-z8">
+    <div class="strategy-update__container">
+      <app-strategy-form
+        [strategyFormGroup]="strategyFormGroup"
+        (addStrategy)="onUpdateStrategy($event)"
+        (addIndicator)="onAddIndicator($event)"
+        [isUpdate]="true"
+      ></app-strategy-form>
+    </div>
+  </div>
+</div>
