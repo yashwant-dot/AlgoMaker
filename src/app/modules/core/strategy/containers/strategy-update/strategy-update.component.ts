@@ -36,7 +36,8 @@ export class StrategyUpdateComponent implements OnInit {
       indicator: [''],
       param1: [''],
       param2: [''],
-      operator: [''],
+      operator1: [''],
+      operator2: [''],
       value1: [{ value: '', disabled: this.checkDisable('SELL') }],
       value2: [{ value: '', disabled: this.checkDisable('BUY') }],
     });
@@ -71,7 +72,7 @@ export class StrategyUpdateComponent implements OnInit {
 
   onIndicatorsValueChanges() {
     this.indicators.controls.forEach((control, index) => {
-      control.get('operator').valueChanges.subscribe((val) => {
+      control.get('operator1').valueChanges.subscribe((val) => {
         if (val === 'signal') {
           control.get('value1').reset();
           control.get('value1').disable();
@@ -120,14 +121,21 @@ export class StrategyUpdateComponent implements OnInit {
     this.onIndicatorsValueChanges();
   }
 
+  onDeleteIndicator(index: number) {
+    this.indicators.removeAt(index);
+    this.onIndicatorsValueChanges();
+  }
+
   toggleIndicatorValueField(value: string) {
     this.indicators.controls.forEach((control) => {
       if (value === 'BUY') {
         control.get('value1').enable();
         this.resetControl(control, 'value2');
+        this.resetControl(control, 'operator2');
         control.get('value2').disable();
       } else if (value === 'SELL') {
         this.resetControl(control, 'value1');
+        this.resetControl(control, 'operator2');
         control.get('value1').disable();
         control.get('value2').enable();
       } else {

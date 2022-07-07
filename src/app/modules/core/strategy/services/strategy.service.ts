@@ -176,7 +176,8 @@ export class StrategyService {
           indicator: ['sma'],
           param1: [14],
           param2: [{ value: '', disabled: true }],
-          operator: ['greater'],
+          operator1: ['greater'],
+          operator2: [],
           value1: [15000],
           value2: [{ value: '', disabled: true }],
         }),
@@ -187,7 +188,8 @@ export class StrategyService {
       strategyData.indicators.map((indicator) => {
         return this.fb.group({
           indicator: [indicator.indicator],
-          operator: [indicator.operator],
+          operator1: [indicator.operator],
+          operator2: [indicator.operator2],
           param1: [indicator.param1],
           param2: [
             {

@@ -35,6 +35,7 @@ export class StrategyFormComponent implements OnInit {
   @Input() isUpdate: boolean = false;
   @Output() addStrategy: EventEmitter<any> = new EventEmitter();
   @Output() addIndicator: EventEmitter<any> = new EventEmitter();
+  @Output() deleteIndicator: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}

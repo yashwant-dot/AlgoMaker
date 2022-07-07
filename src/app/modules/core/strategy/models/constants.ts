@@ -20,9 +20,9 @@ export const indicatorOptions = [
   { id: 'supertrend', name: 'Supertrend' },
   { id: 'rsi', name: 'RSI' },
   { id: 'sma', name: 'SMA' },
-  { id: 'fisher', name: 'Fisher Transform' },
-  { id: 'center', name: 'Center of Gravity' },
-  { id: 'chande', name: 'Chande Momentum' },
+  { id: 'fisherTransform', name: 'Fisher Transform' },
+  { id: 'centerOfGravity', name: 'Center of Gravity' },
+  { id: 'chandeMomentum', name: 'Chande Momentum' },
 ];
 
 export const candleParamOptions = [

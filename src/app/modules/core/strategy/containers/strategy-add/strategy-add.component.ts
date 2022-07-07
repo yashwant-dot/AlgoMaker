@@ -32,7 +32,8 @@ export class StrategyAddComponent implements OnInit {
       indicator: [''],
       param1: [''],
       param2: [''],
-      operator: [''],
+      operator1: [''],
+      operator2: [''],
       value1: [{ value: '', disabled: this.checkDisable('SELL') }],
       value2: [{ value: '', disabled: this.checkDisable('BUY') }],
     });
@@ -70,7 +71,7 @@ export class StrategyAddComponent implements OnInit {
 
   onIndicatorsValueChanges() {
     this.indicators.controls.forEach((control, index) => {
-      control.get('operator').valueChanges.subscribe((val) => {
+      control.get('operator1').valueChanges.subscribe((val) => {
         if (val === 'signal') {
           control.get('value1').reset();
           control.get('value1').disable();
@@ -112,11 +113,17 @@ export class StrategyAddComponent implements OnInit {
     }
     strategyJson['active'] = true;
     strategyJson['user'] = JSON.parse(localStorage.getItem('user'))._id;
+    console.log('add...', strategyJson);
     this.store.dispatch(new AddStrategy(strategyJson));
   }
 
   onAddIndicator(event: any) {
     this.getIndicator.push(this.indicator);
+    this.onIndicatorsValueChanges();
+  }
+
+  onDeleteIndicator(index: number) {
+    this.getIndicator.removeAt(index);
     this.onIndicatorsValueChanges();
   }
 
@@ -137,9 +144,11 @@ export class StrategyAddComponent implements OnInit {
       if (value === 'BUY') {
         control.get('value1').enable();
         this.resetControl(control, 'value2');
+        this.resetControl(control, 'operator2');
         control.get('value2').disable();
       } else if (value === 'SELL') {
         this.resetControl(control, 'value1');
+        this.resetControl(control, 'operator2');
         control.get('value1').disable();
         control.get('value2').enable();
       } else {

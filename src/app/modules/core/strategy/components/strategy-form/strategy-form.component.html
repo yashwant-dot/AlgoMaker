@@ -109,10 +109,13 @@
     </div>
 
     <h3 style="margin: 0">Indicators:</h3>
-    <div formArrayName="indicators" class="indicators__container">
-      <div *ngFor="let line of indicators.controls; let i = index">
+    <div formArrayName="indicators">
+      <div
+        *ngFor="let line of indicators.controls; let i = index"
+        class="indicators__container"
+      >
         <div class="row mb-1" [formGroupName]="i">
-          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
+          <div class="form__field col-12 col-sm-6 col-md-3">
             <label style="margin-bottom: 0.5rem">Indicator {{ i + 1 }}</label>
             <mat-form-field appearance="outline">
               <mat-select formControlName="indicator">
@@ -154,10 +157,10 @@
               />
             </mat-form-field>
           </div>
-          <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
-            <label style="margin-bottom: 0.5rem">Operator {{ i + 1 }}</label>
+          <div class="form__field col-12 col-sm-6 col-md-3">
+            <label style="margin-bottom: 0.5rem">Operator 1</label>
             <mat-form-field appearance="outline">
-              <mat-select formControlName="operator">
+              <mat-select formControlName="operator1">
                 <mat-option
                   *ngFor="let option of operatorOptions"
                   [value]="option.id"
@@ -184,6 +187,22 @@
               />
             </mat-form-field>
           </div>
+          <div
+            class="form__field col-12 col-sm-6 col-md-3"
+            *ngIf="strategyFormGroup.get('direction')?.value === 'BOTH'"
+          >
+            <label style="margin-bottom: 0.5rem">Operator 2</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="operator2">
+                <mat-option
+                  *ngFor="let option of operatorOptions"
+                  [value]="option.id"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <div class="form__field col-12 col-sm-6 col-md-3 col-lg-2">
             <label
               style="margin-bottom: 0.5rem"
@@ -200,6 +219,20 @@
                 formControlName="value2"
               />
             </mat-form-field>
+          </div>
+          <div
+            class="col-12 col-sm-6 col-md-4 align-self-center d-flex"
+            style="margin-left: auto"
+          >
+            <button
+              mat-button
+              color="warn"
+              type="button"
+              style="margin-left: auto"
+              (click)="deleteIndicator.emit(i)"
+            >
+              Delete Indicator {{ i + 1 }}
+            </button>
           </div>
         </div>
       </div>
