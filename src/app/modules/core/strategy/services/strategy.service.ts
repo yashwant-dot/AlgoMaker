@@ -188,7 +188,7 @@ export class StrategyService {
       strategyData.indicators.map((indicator) => {
         return this.fb.group({
           indicator: [indicator.indicator],
-          operator1: [indicator.operator],
+          operator1: [indicator.operator1],
           operator2: [indicator.operator2],
           param1: [indicator.param1],
           param2: [

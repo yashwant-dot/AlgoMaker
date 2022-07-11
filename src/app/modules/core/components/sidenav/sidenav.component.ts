@@ -32,9 +32,5 @@ export class SidenavComponent implements OnInit {
   faAddressBook = faAddressBook;
   constructor(public activateR: Router) {}
 
-  ngOnInit(): void {
-    // console.log();
-    // this.activateR.url.subscribe(console.log);
-    console.log('url', this.activateR.url);
-  }
+  ngOnInit(): void {}
 }

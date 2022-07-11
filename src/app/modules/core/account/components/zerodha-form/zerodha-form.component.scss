@@ -1,0 +1,15 @@
+.zerodhaForm {
+  padding: 1rem;
+
+  .form__field {
+    font-size: 12px;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .disable {
+      color: grey;
+    }
+  }
+}
