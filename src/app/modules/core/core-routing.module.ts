@@ -9,7 +9,6 @@ import {
   CryptoKycComponent,
   CryptoLendingComponent,
   DashboardComponent,
-  OrdersComponent,
   InvoicesDetailsComponent,
   InvoicesListComponent,
   ContactsDetailsComponent,
@@ -51,7 +50,8 @@ const routes: Routes = [
       },
       {
         path: 'orders',
-        component: OrdersComponent,
+        loadChildren: () =>
+          import('./orders/orders.module').then((m) => m.OrdersModule),
       },
       {
         path: 'invoices',

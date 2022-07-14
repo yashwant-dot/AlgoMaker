@@ -32,7 +32,6 @@ export class StrategyComponent implements OnInit {
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('asds');
     this.store.dispatch(new GetStrategy());
     this.store
       .select(getStrategies)

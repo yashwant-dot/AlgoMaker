@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AddAccount, getAccountData } from '../../+state';
 
@@ -19,15 +19,12 @@ export class ZerodhaComponent implements OnInit {
 
   initFormGroup(): void {
     this.zerodhaFormGroup = this.fb.group({
-      name: [''],
-      userID: [''],
-      broker: [''],
-      password: [''],
+      userID: ['', [Validators.required]],
+      broker: ['zerodha', [Validators.required]],
+      password: ['', [Validators.required]],
       auth_type: ['totp'],
-      pin: [''],
-      totp_secret: [''],
-      apiKey: [''],
-      secret: [''],
+      pin: ['', [Validators.required]],
+      totp_secret: ['', [Validators.required]],
     });
   }
 

@@ -90,6 +90,14 @@ export class StrategyUpdateComponent implements OnInit {
             control.get('value2').enable();
           }
         }
+
+        if (val === 'greater') {
+          control.get('operator2').setValue('less');
+          control.get('operator2').disable();
+        } else if (val === 'less') {
+          control.get('operator2').setValue('greater');
+          control.get('operator2').disable();
+        }
       });
 
       control.get('indicator').valueChanges.subscribe((val) => {
@@ -141,6 +149,10 @@ export class StrategyUpdateComponent implements OnInit {
       } else {
         control.get('value1').enable();
         control.get('value2').enable();
+        control
+          .get('operator2')
+          .setValue(this.getOperator2(control, 'operator1'));
+        control.get('operator2').disable();
       }
     });
   }
@@ -152,6 +164,20 @@ export class StrategyUpdateComponent implements OnInit {
   checkDisable(value: string): boolean {
     if (this.strategyFormGroup.get('direction').value === value) return true;
     return false;
+  }
+
+  getOperator2(control: AbstractControl, field: string): string {
+    console.log(control.get(field).value);
+    switch (control.get(field).value) {
+      case 'signal':
+        return 'signal';
+      case 'greater':
+        return 'less';
+      case 'less':
+        return 'greater';
+      default:
+        return null;
+    }
   }
 
   formatTime(time: any): string {

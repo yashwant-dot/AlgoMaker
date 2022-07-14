@@ -177,7 +177,7 @@ export class StrategyService {
           param1: [14],
           param2: [{ value: '', disabled: true }],
           operator1: ['greater'],
-          operator2: [],
+          operator2: [{ disabled: true }],
           value1: [15000],
           value2: [{ value: '', disabled: true }],
         }),
@@ -189,7 +189,7 @@ export class StrategyService {
         return this.fb.group({
           indicator: [indicator.indicator],
           operator1: [indicator.operator1],
-          operator2: [indicator.operator2],
+          operator2: [{ value: indicator.operator2, disabled: true }],
           param1: [indicator.param1],
           param2: [
             {
@@ -202,7 +202,7 @@ export class StrategyService {
               value: indicator.value1,
               disabled:
                 strategyData.direction === 'SELL' ||
-                indicator.operator === 'signal',
+                indicator.operator1 === 'signal',
             },
           ],
           value2: [
@@ -210,7 +210,7 @@ export class StrategyService {
               value: indicator.value2,
               disabled:
                 strategyData.direction === 'BUY' ||
-                indicator.operator === 'signal',
+                indicator.operator1 === 'signal',
             },
           ],
         });

@@ -1,20 +1,20 @@
 <div class="zerodhaForm">
   <form [formGroup]="zerodhaFormGroup">
     <div class="row mb-1">
-      <div class="form__field col-12 col-sm-6 col-md-4">
-        <shared-input
-          [type]="'text'"
-          [inputForm]="zerodhaFormGroup"
-          [inputControl]="'name'"
-          [label]="'Name'"
-        ></shared-input>
-      </div>
       <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'text'"
           [inputForm]="zerodhaFormGroup"
           [inputControl]="'userID'"
           [label]="'User ID'"
+        ></shared-input>
+      </div>
+      <div class="form__field col-12 col-sm-6 col-md-4">
+        <shared-input
+          [type]="'password'"
+          [inputForm]="zerodhaFormGroup"
+          [inputControl]="'password'"
+          [label]="'Password'"
         ></shared-input>
       </div>
     </div>
@@ -28,14 +28,6 @@
           [dropdownControl]="'broker'"
           [isRequired]="false"
         ></shared-dropdown>
-      </div>
-      <div class="form__field col-12 col-md-3">
-        <shared-input
-          [type]="'password'"
-          [inputForm]="zerodhaFormGroup"
-          [inputControl]="'password'"
-          [label]="'Password'"
-        ></shared-input>
       </div>
     </div>
 
@@ -75,34 +67,13 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form__field col-12 col-md-4">
-        <shared-input
-          [type]="'text'"
-          [inputForm]="zerodhaFormGroup"
-          [inputControl]="'apiKey'"
-          [label]="'API Key'"
-        ></shared-input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form__field col-12 col-md-4">
-        <shared-input
-          [type]="'text'"
-          [inputForm]="zerodhaFormGroup"
-          [inputControl]="'secret'"
-          [label]="'Secret'"
-        ></shared-input>
-      </div>
-    </div>
-
     <div>
       <button
         mat-raised-button
         color="primary"
         type="button"
         style="padding: 0 3rem"
+        [disabled]="!zerodhaFormGroup.valid"
         (click)="onAcceptForm.emit(zerodhaFormGroup.getRawValue())"
       >
         Accept

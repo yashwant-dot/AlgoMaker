@@ -33,6 +33,7 @@ export class StrategyFormComponent implements OnInit {
   exchangeOptions = exchangeOptions;
   @Input() strategyFormGroup!: FormGroup;
   @Input() isUpdate: boolean = false;
+  @Input() indicatorError: string;
   @Output() addStrategy: EventEmitter<any> = new EventEmitter();
   @Output() addIndicator: EventEmitter<any> = new EventEmitter();
   @Output() deleteIndicator: EventEmitter<any> = new EventEmitter();

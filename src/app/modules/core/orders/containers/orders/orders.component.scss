@@ -19,14 +19,9 @@
   .mat-tab-label {
     min-width: 100px;
     font-weight: bold;
-
-    &.mat-tab-label-active {
-      color: #556ee6;
-    }
   }
 
   .mat-tab-group.mat-primary .mat-ink-bar {
     width: 100px;
-    background-color: #556ee6;
   }
 }

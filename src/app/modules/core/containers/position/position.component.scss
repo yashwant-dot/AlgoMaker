@@ -1,0 +1,32 @@
+.orders {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #f6f6fa;
+
+  .allOrdersContent {
+    padding: 2rem 1rem;
+
+    &__table {
+      margin-top: 1rem;
+      table {
+        width: 100%;
+      }
+    }
+  }
+}
+
+::ng-deep .tabs {
+  .mat-tab-label {
+    min-width: 100px;
+    font-weight: bold;
+
+    &.mat-tab-label-active {
+      color: #556ee6;
+    }
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar {
+    width: 100px;
+    background-color: #556ee6;
+  }
+}

@@ -21,6 +21,7 @@ export class StrategyAddComponent implements OnInit {
     { label: 'Add Strategy', active: true },
   ];
   strategyFormData: any = {};
+  indicatorError: string;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -88,6 +89,14 @@ export class StrategyAddComponent implements OnInit {
             control.get('value1').enable();
             control.get('value2').enable();
           }
+
+          if (val === 'greater') {
+            control.get('operator2').setValue('less');
+            control.get('operator2').disable();
+          } else if (val === 'less') {
+            control.get('operator2').setValue('greater');
+            control.get('operator2').disable();
+          }
         }
       });
 
@@ -118,13 +127,29 @@ export class StrategyAddComponent implements OnInit {
   }
 
   onAddIndicator(event: any) {
+    if (this.getIndicator.length >= 5) {
+      this.indicatorError = 'Cannot add more than 5 indicators';
+      this.hideIndicatorError();
+      return;
+    }
     this.getIndicator.push(this.indicator);
     this.onIndicatorsValueChanges();
   }
 
   onDeleteIndicator(index: number) {
+    if (this.getIndicator.length <= 1) {
+      this.indicatorError = 'There should be atleast 1 indicator';
+      this.hideIndicatorError();
+      return;
+    }
     this.getIndicator.removeAt(index);
     this.onIndicatorsValueChanges();
+  }
+
+  hideIndicatorError() {
+    setTimeout(() => {
+      this.indicatorError = '';
+    }, 5000);
   }
 
   formatTime(time: any): string {
@@ -154,6 +179,10 @@ export class StrategyAddComponent implements OnInit {
       } else {
         control.get('value1').enable();
         control.get('value2').enable();
+        control
+          .get('operator2')
+          .setValue(this.getOperator2(control, 'operator1'));
+        control.get('operator2').disable();
       }
     });
   }
@@ -165,5 +194,19 @@ export class StrategyAddComponent implements OnInit {
   checkDisable(value: string): boolean {
     if (this.strategyFormGroup.get('direction').value === value) return true;
     return false;
+  }
+
+  getOperator2(control: AbstractControl, field: string): string {
+    console.log(control.get(field).value);
+    switch (control.get(field).value) {
+      case 'signal':
+        return 'signal';
+      case 'greater':
+        return 'less';
+      case 'less':
+        return 'greater';
+      default:
+        return null;
+    }
   }
 }
