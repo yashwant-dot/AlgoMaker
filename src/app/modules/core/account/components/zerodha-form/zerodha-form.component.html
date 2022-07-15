@@ -1,6 +1,17 @@
 <div class="zerodhaForm">
   <form [formGroup]="zerodhaFormGroup">
     <div class="row mb-1">
+      <div class="form__field col-12 col-md-3">
+        <shared-dropdown
+          [placeholder]="'Broker'"
+          [optionsData]="brokerOptions"
+          [dropdownForm]="zerodhaFormGroup"
+          [dropdownControl]="'broker'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+    </div>
+    <div class="row mb-1">
       <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-input
           [type]="'text'"
@@ -16,18 +27,6 @@
           [inputControl]="'password'"
           [label]="'Password'"
         ></shared-input>
-      </div>
-    </div>
-
-    <div class="row mb-1">
-      <div class="form__field col-12 col-md-3">
-        <shared-dropdown
-          [placeholder]="'Broker'"
-          [optionsData]="brokerOptions"
-          [dropdownForm]="zerodhaFormGroup"
-          [dropdownControl]="'broker'"
-          [isRequired]="false"
-        ></shared-dropdown>
       </div>
     </div>
 

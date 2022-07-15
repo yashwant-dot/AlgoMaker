@@ -7,7 +7,7 @@ import {
   AddAccountSuccess,
   AddAccountFail,
 } from './account.actions';
-import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
+import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AccountService } from '../services';
 
@@ -24,9 +24,14 @@ export class AccountEffects {
     switchMap((action) => {
       return this.accountServ.addAccount(action.payload).pipe(
         map((data) => {
+          if (data && data.message && data.message.errors) {
+            alert(data.message.message);
+          }
           return new AddAccountSuccess(data);
         }),
-        catchError((err) => of(new AddAccountFail()))
+        catchError((err) => {
+          return of(new AddAccountFail());
+        })
       );
     })
   );

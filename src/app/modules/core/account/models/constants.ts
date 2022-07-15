@@ -5,6 +5,6 @@ export const brokerOptions = [
 ];
 
 export const authTypeOptions = [
-  { id: 'pin', name: 'PIN' },
   { id: 'totp', name: 'TOTP' },
+  { id: 'pin', name: 'PIN' },
 ];

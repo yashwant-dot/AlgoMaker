@@ -23,8 +23,22 @@ export class ZerodhaComponent implements OnInit {
       broker: ['zerodha', [Validators.required]],
       password: ['', [Validators.required]],
       auth_type: ['totp'],
-      pin: ['', [Validators.required]],
+      pin: [''],
       totp_secret: ['', [Validators.required]],
+    });
+
+    this.zerodhaFormGroup.get('auth_type').valueChanges.subscribe((val) => {
+      if (val === 'pin') {
+        this.zerodhaFormGroup.get('pin').setValidators(Validators.required);
+        this.zerodhaFormGroup.get('totp_secret').clearValidators();
+        this.zerodhaFormGroup.get('totp_secret').setValue('');
+      } else {
+        this.zerodhaFormGroup
+          .get('totp_secret')
+          .setValidators(Validators.required);
+        this.zerodhaFormGroup.get('pin').clearValidators();
+        this.zerodhaFormGroup.get('pin').setValue('');
+      }
     });
   }
 

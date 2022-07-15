@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API } from 'src/config';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { of, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -15,10 +15,10 @@ export class AccountService {
     return this.http
       .post(`${API}/accounts/addAccount`, JSON.stringify(payload))
       .pipe(
-        map((response) => {
-          return of(response);
+        map((response: any) => {
+          return response;
         }),
-        catchError((response) => of(response.error))
+        catchError((error) => of(error))
       );
   }
 }
