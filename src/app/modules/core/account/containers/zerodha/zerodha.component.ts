@@ -46,7 +46,7 @@ export class ZerodhaComponent implements OnInit {
     this.store.dispatch(
       new AddAccount({
         ...values,
-        user: JSON.parse(localStorage.getItem('user')),
+        user: JSON.parse(localStorage.getItem('user'))?._id,
       })
     );
   }

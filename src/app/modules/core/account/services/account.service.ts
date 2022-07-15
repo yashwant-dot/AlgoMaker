@@ -11,7 +11,6 @@ export class AccountService {
   constructor(private http: HttpClient) {}
 
   addAccount(payload: any): Observable<any> {
-    const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
     return this.http
       .post(`${API}/accounts/addAccount`, JSON.stringify(payload))
       .pipe(
