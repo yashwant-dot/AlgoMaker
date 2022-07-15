@@ -177,7 +177,7 @@ export class StrategyService {
           param1: [14],
           param2: [{ value: '', disabled: true }],
           operator1: ['greater'],
-          operator2: [{ disabled: true }],
+          operator2: [''],
           value1: [15000],
           value2: [{ value: '', disabled: true }],
         }),
