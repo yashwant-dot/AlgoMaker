@@ -10,13 +10,14 @@ import {
 import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AccountService } from '../services';
-
+import { SharedService } from 'src/app/modules/shared/shared.service';
 @Injectable()
 export class AccountEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private accountServ: AccountService
+    private accountServ: AccountService,
+    private sharedServ: SharedService
   ) {}
 
   @Effect() addAccount$ = this.actions$.pipe(
@@ -27,6 +28,7 @@ export class AccountEffects {
           if (data && data.message && data.message.errors) {
             alert(data.message.message);
           }
+          this.sharedServ.openSnackBar('success', 'Account added successfully');
           return new AddAccountSuccess(data);
         }),
         catchError((err) => {
