@@ -1,29 +1,36 @@
-<div class="orders">
+<div class="page">
   <shared-page-title [title]="'ORDERS'"></shared-page-title>
 
-  <div class="row">
+  <div class="mat-elevation-z8 page__content">
+    <ng-container *ngIf="dataToDisplay?.length > 0; else noOrders">
+      <div class="tabs">
+        <mat-tab-group mat-align-tabs="start">
+          <mat-tab label="All Orders">
+            <div class="page__table">
+              <app-order-table
+                [dataToDisplay]="dataToDisplay"
+                [columns]="columnsToDisplay"
+              ></app-order-table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </ng-container>
+
+    <ng-template #noOrders>
+      <div class="noOrders">
+        <h2>No Today's Orders Found.</h2>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- <div class="row">
     <div class="col-21">
       <div class="card">
         <div class="card-body">
-          <div class="tabs">
-            <mat-tab-group mat-align-tabs="start">
-              <mat-tab label="All Orders">
-                <div class="allOrdersContent">
-                  <div class="allOrdersContent__filters">
-                    <app-order-filters></app-order-filters>
-                  </div>
-                  <div class="allOrdersContent__table">
-                    <app-order-table
-                      [dataToDisplay]="dataToDisplay"
-                      [columns]="columnsToDisplay"
-                    ></app-order-table>
-                  </div>
-                </div>
-              </mat-tab>
-            </mat-tab-group>
-          </div>
+          
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

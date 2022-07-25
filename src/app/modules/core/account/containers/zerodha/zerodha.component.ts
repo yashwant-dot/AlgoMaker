@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AddAccount, getAccountData } from '../../+state';
+import { AddAccount } from '../../+state';
 
 @Component({
   selector: 'app-zerodha',
@@ -14,7 +14,6 @@ export class ZerodhaComponent implements OnInit {
 
   ngOnInit(): void {
     this.initFormGroup();
-    this.store.select(getAccountData);
   }
 
   initFormGroup(): void {

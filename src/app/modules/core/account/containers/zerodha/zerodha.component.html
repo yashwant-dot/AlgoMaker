@@ -1,16 +1,5 @@
-<div class="account">
-  <shared-page-title [title]="'Account'"></shared-page-title>
-  <div class="mat-elevation-z8">
-    <div class="account__container">
-      <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Zerodha Account">
-          <app-zerodha-form
-            [zerodhaFormGroup]="zerodhaFormGroup"
-            (onAcceptForm)="onAcceptForm($event)"
-          >
-          </app-zerodha-form>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </div>
-</div>
+<app-zerodha-form
+  [zerodhaFormGroup]="zerodhaFormGroup"
+  (onAcceptForm)="onAcceptForm($event)"
+>
+</app-zerodha-form>

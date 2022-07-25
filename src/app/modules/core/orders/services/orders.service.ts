@@ -12,7 +12,7 @@ export class OrdersService {
 
   getOrders(): Observable<any> {
     const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
-    return this.http.get(`${API}/orders/getAllTrades/${id}`).pipe(
+    return this.http.get(`${API}/orders/getTodaysOrders/${id}`).pipe(
       map((response) => {
         return response;
       }),

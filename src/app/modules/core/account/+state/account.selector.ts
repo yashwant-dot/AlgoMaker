@@ -7,7 +7,7 @@ export interface ManageAccountState {
 
 export const selectFeature = (state: ManageAccountState) => state.account;
 
-export const getAccountData = createSelector(
+export const getAllAccounts = createSelector(
   selectFeature,
-  (state: AccountState) => (state ? state.data : null)
+  (state: AccountState) => (state ? state.allAccounts : null)
 );

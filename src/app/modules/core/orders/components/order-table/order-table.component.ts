@@ -28,6 +28,8 @@ export class OrderTableComponent implements OnInit {
         quantity: d.quantity,
         direction: d.direction,
         price: d.price,
+        status: d.status,
+        remarks: d.remarks,
         createdAt: d.createdAt,
       };
     });

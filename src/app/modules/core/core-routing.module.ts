@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   MainComponent,
-  AccountComponent,
-  PositionComponent,
   TradeComponent,
   CryptoWalletComponent,
   CryptoKycComponent,
@@ -25,7 +23,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./account/account.module').then((m) => m.AccountModule),
       },
-      { path: 'position', component: PositionComponent },
+      {
+        path: 'position',
+        loadChildren: () =>
+          import('./position/position.module').then((m) => m.PositionModule),
+      },
       { path: 'trade', component: TradeComponent },
       {
         path: 'strategy',

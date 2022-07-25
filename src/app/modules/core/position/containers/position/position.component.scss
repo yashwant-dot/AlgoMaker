@@ -13,22 +13,27 @@
       }
     }
   }
-
-  .noOrders {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-  }
 }
 
 ::ng-deep .tabs {
   .mat-tab-label {
     min-width: 100px;
     font-weight: bold;
+
+    &.mat-tab-label-active {
+      color: #556ee6;
+    }
   }
 
   .mat-tab-group.mat-primary .mat-ink-bar {
     width: 100px;
+    background-color: #556ee6;
   }
+}
+
+.noData {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

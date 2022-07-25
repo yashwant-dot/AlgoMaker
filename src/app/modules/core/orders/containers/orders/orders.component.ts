@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GetOrders, getOrdersData } from '../../+state';
 
@@ -15,6 +15,8 @@ export class OrdersComponent implements OnInit {
     'quantity',
     'direction',
     'price',
+    'status',
+    'remarks',
     'createdAt',
   ];
   constructor(private store: Store) {}

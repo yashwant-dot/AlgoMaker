@@ -1,12 +1,12 @@
-<div class="strategy">
-  <div class="strategy__header">
+<div class="page">
+  <div class="page__header">
     <h1>Strategy</h1>
     <button mat-raised-button color="primary" (click)="onAddStrategy()">
       Add Strategy
     </button>
   </div>
-  <div class="mat-elevation-z8">
-    <div class="strategy__table__container">
+  <div class="mat-elevation-z8 page__content">
+    <div class="page__table">
       <table mat-table matSort [dataSource]="dataSource">
         <ng-container matColumnDef="name">
           <th
