@@ -9,7 +9,6 @@ import { API } from 'src/config';
 })
 export class PositionService {
   constructor(private http: HttpClient) {}
-  testV: any;
   getPositions(): Observable<any> {
     const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
     return this.http.get(`${API}/orders/getTodaysOrders/${id}`).pipe(
@@ -24,7 +23,7 @@ export class PositionService {
     if (!data) {
       return [];
     }
-    const newData = data?.filter((d) => d.status === 'SUCCESSFUL');
+    const newData = data?.filter((d) => d.status === 'COMPLETE');
     const groupByPairId = this.groupBy(newData, 'pairId');
     return await this.mapData(groupByPairId);
   }

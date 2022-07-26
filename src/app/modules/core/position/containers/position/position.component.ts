@@ -11,6 +11,7 @@ import { PositionService } from '../../position.service';
   styleUrls: ['./position.component.scss'],
 })
 export class PositionComponent implements OnInit, OnDestroy {
+  loading: boolean = false;
   dataSource: MatTableDataSource<any>;
   dataToDisplay: any = [];
   columnsToDisplay: string[] = [
@@ -21,11 +22,13 @@ export class PositionComponent implements OnInit, OnDestroy {
     'ltp',
   ];
   apiInterval;
-  constructor(private store: Store, private posServ: PositionService) {}
+  constructor(private store: Store, public posServ: PositionService) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.posServ.getPositions().subscribe((data) => {
       data.then((d) => {
+        setTimeout(() => (this.loading = false), 1000);
         this.dataToDisplay = d;
         this.dataSource = new MatTableDataSource(d);
       });
