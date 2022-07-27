@@ -2,10 +2,13 @@
   <shared-page-title [title]="'ORDERS'"></shared-page-title>
 
   <div class="mat-elevation-z8 page__content">
-    <ng-container *ngIf="dataToDisplay?.length > 0; else noOrders">
-      <div class="tabs">
+    <div *ngIf="loading$ | async; else loaded" class="loader">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    <ng-template #loaded>
+      <ng-container *ngIf="dataToDisplay?.length > 0; else noOrders">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="All Orders">
+          <mat-tab label="Today's Orders">
             <div class="page__table">
               <app-order-table
                 [dataToDisplay]="dataToDisplay"
@@ -14,23 +17,13 @@
             </div>
           </mat-tab>
         </mat-tab-group>
-      </div>
-    </ng-container>
+      </ng-container>
 
-    <ng-template #noOrders>
-      <div class="noOrders">
-        <h2>No Today's Orders Found.</h2>
-      </div>
+      <ng-template #noOrders>
+        <div class="noOrders">
+          <h2>No Today's Orders Found.</h2>
+        </div>
+      </ng-template>
     </ng-template>
   </div>
-
-  <!-- <div class="row">
-    <div class="col-21">
-      <div class="card">
-        <div class="card-body">
-          
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>

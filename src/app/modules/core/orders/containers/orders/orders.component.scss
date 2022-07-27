@@ -1,34 +1,6 @@
-.orders {
-  padding: 2rem;
-  min-height: 100vh;
-  background-color: #f6f6fa;
-
-  .allOrdersContent {
-    padding: 2rem 1rem;
-
-    &__table {
-      margin-top: 1rem;
-      table {
-        width: 100%;
-      }
-    }
-  }
-
-  .noOrders {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-  }
-}
-
-::ng-deep .tabs {
-  .mat-tab-label {
-    min-width: 100px;
-    font-weight: bold;
-  }
-
-  .mat-tab-group.mat-primary .mat-ink-bar {
-    width: 100px;
-  }
+.noOrders {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

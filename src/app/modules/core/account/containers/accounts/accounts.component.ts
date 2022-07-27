@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { GetAllAccounts, getAllAccounts } from '../../+state';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ZerodhaComponent } from '../zerodha/zerodha.component';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -13,7 +14,7 @@ export class AccountsComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   dataToDisplay: any[] = [];
   columnsToDisplay: string[] = ['broker', 'userID', 'balance', 'createdAt'];
-  constructor(private store: Store) {}
+  constructor(private store: Store, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllAccounts());
@@ -36,5 +37,11 @@ export class AccountsComponent implements OnInit {
       });
       this.dataSource = new MatTableDataSource(this.dataToDisplay);
     }
+  }
+
+  onAddAccount() {
+    const dialogRef = this.dialog.open(ZerodhaComponent, {
+      width: '40%',
+    });
   }
 }

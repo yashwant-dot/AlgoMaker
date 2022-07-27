@@ -1,6 +1,15 @@
-.zerodhaForm {
-  padding: 1rem;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 
+  h2 {
+    margin: 0;
+  }
+}
+
+.zerodhaForm {
   .form__field {
     font-size: 12px;
 
