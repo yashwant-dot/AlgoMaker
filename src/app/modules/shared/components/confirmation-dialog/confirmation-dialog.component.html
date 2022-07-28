@@ -1,0 +1,31 @@
+<div class="confirmModal">
+  <div class="confirmModal-header">
+    <h2 mat-dialog-title>{{ modalData.title }}</h2>
+    <button mat-icon-button type="button" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div>
+    <p>{{ modalData.message }}</p>
+  </div>
+
+  <div class="confirmModal-actions">
+    <button
+      mat-raised-button
+      type="button"
+      style="margin-right: 1rem"
+      (click)="onClose()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="onConfirm()"
+    >
+      Confirm
+    </button>
+  </div>
+</div>

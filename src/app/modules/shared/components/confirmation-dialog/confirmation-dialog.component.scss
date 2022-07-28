@@ -1,0 +1,17 @@
+.confirmModal {
+  &-header {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+  }
+}

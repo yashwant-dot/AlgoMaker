@@ -8,6 +8,7 @@ import {
   InputComponent,
   PageTitleComponent,
   SnackbarComponent,
+  ConfirmationDialogComponent,
 } from './components';
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {
     InputComponent,
     PageTitleComponent,
     SnackbarComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import {
     InputComponent,
     PageTitleComponent,
     SnackbarComponent,
+    ConfirmationDialogComponent,
   ],
 })
 export class SharedModule {}

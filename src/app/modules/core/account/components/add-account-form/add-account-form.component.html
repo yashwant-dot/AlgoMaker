@@ -1,35 +1,35 @@
 <div class="modal-header">
   <h2 mat-dialog-title>Add Account</h2>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="onClose()" type="button">
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<div class="zerodhaForm">
-  <form [formGroup]="zerodhaFormGroup">
+<div>
+  <form [formGroup]="addAccountFormGroup">
     <div class="row mb-1">
-      <div class="form__field col-12 col-md-3">
+      <div class="form__field col-12 col-md-6">
         <shared-dropdown
           [placeholder]="'Broker'"
           [optionsData]="brokerOptions"
-          [dropdownForm]="zerodhaFormGroup"
+          [dropdownForm]="addAccountFormGroup"
           [dropdownControl]="'broker'"
           [isRequired]="false"
         ></shared-dropdown>
       </div>
     </div>
     <div class="row mb-1">
-      <div class="form__field col-12 col-sm-6 col-md-3">
+      <div class="form__field col-12 col-sm-6">
         <shared-input
           [type]="'text'"
-          [inputForm]="zerodhaFormGroup"
+          [inputForm]="addAccountFormGroup"
           [inputControl]="'userID'"
           [label]="'User ID'"
         ></shared-input>
       </div>
-      <div class="form__field col-12 col-sm-6 col-md-4">
+      <div class="form__field col-12 col-sm-6">
         <shared-input
           [type]="'password'"
-          [inputForm]="zerodhaFormGroup"
+          [inputForm]="addAccountFormGroup"
           [inputControl]="'password'"
           [label]="'Password'"
         ></shared-input>
@@ -37,51 +37,54 @@
     </div>
 
     <div class="row">
-      <div class="form__field col-12 col-md-3">
+      <div class="form__field col-12 col-md-6">
         <shared-dropdown
           [placeholder]="'Auth Type'"
           [optionsData]="authTypeOptions"
-          [dropdownForm]="zerodhaFormGroup"
+          [dropdownForm]="addAccountFormGroup"
           [dropdownControl]="'auth_type'"
           [isRequired]="false"
         ></shared-dropdown>
       </div>
 
       <div
-        class="form__field col-12 col-md-3"
-        *ngIf="zerodhaFormGroup.get('auth_type').value === 'totp'"
+        class="form__field col-12 col-md-6"
+        *ngIf="addAccountFormGroup.get('auth_type').value === 'totp'"
       >
         <shared-input
           [type]="'text'"
-          [inputForm]="zerodhaFormGroup"
+          [inputForm]="addAccountFormGroup"
           [inputControl]="'totp_secret'"
           [label]="'T-OTP Secret'"
         ></shared-input>
       </div>
 
       <div
-        class="form__field col-12 col-md-3"
-        *ngIf="zerodhaFormGroup.get('auth_type').value === 'pin'"
+        class="form__field col-12 col-md-6"
+        *ngIf="addAccountFormGroup.get('auth_type').value === 'pin'"
       >
         <shared-input
           [type]="'number'"
-          [inputForm]="zerodhaFormGroup"
+          [inputForm]="addAccountFormGroup"
           [inputControl]="'pin'"
           [label]="'PIN'"
         ></shared-input>
       </div>
     </div>
 
-    <div>
+    <div class="modal-actions">
       <button
         mat-raised-button
         color="primary"
         type="button"
-        style="padding: 0 3rem"
-        [disabled]="!zerodhaFormGroup.valid"
-        (click)="onAcceptForm.emit(zerodhaFormGroup.getRawValue())"
+        style="margin-right: 1rem"
+        [disabled]="!addAccountFormGroup.valid"
+        (click)="onAddAccount(addAccountFormGroup.getRawValue())"
       >
-        Accept
+        Add Account
+      </button>
+      <button mat-raised-button type="button" (click)="onClose()">
+        Cancel
       </button>
     </div>
   </form>

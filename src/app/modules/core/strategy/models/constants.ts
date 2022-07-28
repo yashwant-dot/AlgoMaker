@@ -36,6 +36,8 @@ export const operatorOptions = [
   { id: 'signal', name: 'Indicator Signal' },
   { id: 'greater', name: 'Greater Than' },
   { id: 'less', name: 'Less Than' },
+  { id: 'crossabove', name: 'Cross Above' },
+  { id: 'crossbelow', name: 'Cross Below' },
 ];
 
 export const orderTypeOptions = [

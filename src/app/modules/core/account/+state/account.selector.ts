@@ -11,3 +11,9 @@ export const getAllAccounts = createSelector(
   selectFeature,
   (state: AccountState) => (state ? state.allAccounts : null)
 );
+
+export const getDefaultAccount = createSelector(
+  getAllAccounts,
+  (accounts: any[]) =>
+    accounts ? accounts.find((account) => account?.isDefault === true) : null
+);

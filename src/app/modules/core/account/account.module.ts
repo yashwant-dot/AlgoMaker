@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ZerodhaComponent, AccountsComponent } from './containers';
-import { ZerodhaFormComponent } from './components';
+import { AccountsComponent, DefaultAccountComponent } from './containers';
+import { AddAccountFormComponent } from './components';
 import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +19,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ZerodhaComponent, ZerodhaFormComponent, AccountsComponent],
+  declarations: [
+    AccountsComponent,
+    DefaultAccountComponent,
+    AddAccountFormComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

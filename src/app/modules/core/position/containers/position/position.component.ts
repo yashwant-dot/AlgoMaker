@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { getAllPositions, GetAllPositions } from '../../+state';
 import { PositionService } from '../../position.service';
 
 @Component({

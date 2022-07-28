@@ -28,4 +28,14 @@ export class AccountService {
         catchError((error) => of(error))
       );
   }
+
+  makeAccountDefault(payload: any): Observable<any> {
+    const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
+    return this.http
+      .post(`${API}/accounts/makeDefault/${id}`, JSON.stringify(payload))
+      .pipe(
+        map((response: any) => response),
+        catchError((error) => of(error))
+      );
+  }
 }

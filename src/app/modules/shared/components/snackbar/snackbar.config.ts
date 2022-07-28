@@ -5,7 +5,7 @@ type SnackbarState = 'success' | 'error' | 'warning';
 export const SnackbarConfig = (
   state: SnackbarState,
   message: string,
-  duration: number = 5000
+  duration: number = 3000
 ) => ({
   duration: duration,
   data: { type: state, message },

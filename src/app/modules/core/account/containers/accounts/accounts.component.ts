@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { GetAllAccounts, getAllAccounts } from '../../+state';
+import {
+  AddAccount,
+  GetAllAccounts,
+  getAllAccounts,
+  MakeAccountDefault,
+} from '../../+state';
 import { MatDialog } from '@angular/material/dialog';
-import { ZerodhaComponent } from '../zerodha/zerodha.component';
+import { AddAccountFormComponent } from '../../components';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -13,7 +19,14 @@ export class AccountsComponent implements OnInit {
   selectedIndex = 0;
   dataSource!: MatTableDataSource<any>;
   dataToDisplay: any[] = [];
-  columnsToDisplay: string[] = ['broker', 'userID', 'balance', 'createdAt'];
+  columnsToDisplay: string[] = [
+    'broker',
+    'userID',
+    'balance',
+    'createdAt',
+    'default',
+    'action',
+  ];
   constructor(private store: Store, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -33,6 +46,7 @@ export class AccountsComponent implements OnInit {
           balance: d.balance,
           createdAt: d.createdAt,
           default: d.isDefault,
+          accountId: d._id,
         };
       });
       this.dataSource = new MatTableDataSource(this.dataToDisplay);
@@ -40,8 +54,40 @@ export class AccountsComponent implements OnInit {
   }
 
   onAddAccount() {
-    const dialogRef = this.dialog.open(ZerodhaComponent, {
+    const dialogRef = this.dialog.open(AddAccountFormComponent, {
       width: '40%',
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(
+          new AddAccount({
+            ...result,
+            user: JSON.parse(localStorage.getItem('user'))?._id,
+          })
+        );
+      }
+    });
+  }
+
+  onMakeDefault(accountId) {
+    console.log('acc id...', accountId);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '40%',
+      autoFocus: false,
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure to make this account as default ?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(
+          new MakeAccountDefault({
+            accountId,
+          })
+        );
+      }
     });
   }
 }

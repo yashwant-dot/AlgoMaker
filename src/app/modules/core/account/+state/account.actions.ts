@@ -7,6 +7,9 @@ export enum AccountActionTypes {
   AddAccount = '[Account] Add Account',
   AddAccountSuccess = '[Account] Add Account Success',
   AddAccountFail = '[Account] Add Account Fail',
+  MakeAccountDefault = '[Account] Make Account Default',
+  MakeAccountDefaultSuccess = '[Account] Make Account Default Success',
+  MakeAccountDefaultFail = '[Account] Make Account Default Fail',
 }
 
 export class GetAllAccounts implements Action {
@@ -30,12 +33,23 @@ export class AddAccount implements Action {
 
 export class AddAccountSuccess implements Action {
   readonly type = AccountActionTypes.AddAccountSuccess;
-  constructor(public payload: any) {}
 }
 
 export class AddAccountFail implements Action {
   readonly type = AccountActionTypes.AddAccountFail;
-  constructor() {}
+}
+
+export class MakeAccountDefault implements Action {
+  readonly type = AccountActionTypes.MakeAccountDefault;
+  constructor(public payload: any) {}
+}
+
+export class MakeAccountDefaultSuccess implements Action {
+  readonly type = AccountActionTypes.MakeAccountDefaultSuccess;
+}
+
+export class MakeAccountDefaultFail implements Action {
+  readonly type = AccountActionTypes.MakeAccountDefaultFail;
 }
 
 export type AccountActions =
@@ -44,4 +58,7 @@ export type AccountActions =
   | AddAccountFail
   | GetAllAccounts
   | GetAllAccountsSuccess
-  | GetAllAccountsFail;
+  | GetAllAccountsFail
+  | MakeAccountDefault
+  | MakeAccountDefaultSuccess
+  | MakeAccountDefaultFail;
