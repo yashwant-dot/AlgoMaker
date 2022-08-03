@@ -37,3 +37,33 @@
   align-items: center;
   justify-content: center;
 }
+
+.greenAni {
+  background-color: transparent;
+  animation: goGreen 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.redAni {
+  background-color: transparent;
+  animation: goRed 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes goGreen {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: green;
+  }
+}
+
+@keyframes goRed {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: red;
+  }
+}

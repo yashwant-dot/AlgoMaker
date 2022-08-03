@@ -23,11 +23,20 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+          <td mat-cell *matCellDef="let row">
+            <span aria-label="row.quantity" class="row-element__type"
+              >{{ row.quantity }}
+            </span>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="buyValue">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Buy Value</th>
           <td mat-cell *matCellDef="let row">
             <span aria-label="row.buyValue" class="row-element__type"
-              >{{ row.buyValue }}
+              >{{ row.buyValue | number: "1.2-2" }}
             </span>
           </td>
         </ng-container>
@@ -36,7 +45,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Sell Value</th>
           <td mat-cell *matCellDef="let row">
             <span aria-label="row.sellValue" class="row-element__coin"
-              >{{ row.sellValue }}
+              >{{ row.sellValue | number: "1.2-2" }}
             </span>
           </td>
         </ng-container>
@@ -44,8 +53,12 @@
         <ng-container matColumnDef="pnl">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>P&L</th>
           <td mat-cell *matCellDef="let row">
-            <span aria-label="row.pnl" class="row-element__value"
-              >{{ row.pnl }}
+            <span
+              aria-label="row.pnl"
+              class="row-element__value badge badge-pill direction"
+              style="padding: 0.5rem 1rem; font-size: 12px"
+              [ngClass]="row.pnl >= 0 ? 'greenAni' : 'redAni'"
+              >{{ row.pnl | number: "1.2-2" }}
             </span>
           </td>
         </ng-container>
@@ -54,7 +67,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>LTP</th>
           <td mat-cell *matCellDef="let row">
             <span aria-label="row.ltp" class="row-element__usd"
-              >{{ row.ltp }}
+              >{{ row.ltp | number: "1.2-2" }}
             </span>
           </td>
         </ng-container>

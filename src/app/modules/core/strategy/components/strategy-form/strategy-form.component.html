@@ -155,6 +155,18 @@
                 autocomplete="off"
                 formControlName="param2"
               />
+              <mat-error
+                *ngIf="
+                  indicators.at(i).get('param2')?.touched ||
+                  indicators.at(i).get('param2')?.dirty
+                "
+              >
+                <ng-container
+                  *ngIf="indicators.at(i).get('param2')?.hasError('required')"
+                >
+                  Param 2 is required
+                </ng-container>
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="form__field col-12 col-sm-6 col-md-3">

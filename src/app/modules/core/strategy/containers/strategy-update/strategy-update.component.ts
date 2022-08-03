@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getStrategyToUpdate, UpdateStrategy } from '../../+state';
-import { StrategyService } from '../../services';
+import { StrategyService, StratergyFormService } from '../../services';
 
 @Component({
   selector: 'app-strategy-update',
@@ -21,26 +21,14 @@ export class StrategyUpdateComponent implements OnInit {
     { label: 'Strategy', link: '../', active: false },
     { label: 'Update Strategy', active: true },
   ];
+  indicatorError: string;
   constructor(
-    private fb: FormBuilder,
     private store: Store,
-    private strategyServ: StrategyService
+    private strategyFormService: StratergyFormService
   ) {}
 
   get indicators(): FormArray {
     return this.strategyFormGroup.get('indicators') as FormArray;
-  }
-
-  get indicator(): FormGroup {
-    return this.fb.group({
-      indicator: [''],
-      param1: [''],
-      param2: [''],
-      operator1: [''],
-      operator2: [''],
-      value1: [{ value: '', disabled: this.checkDisable('SELL') }],
-      value2: [{ value: '', disabled: this.checkDisable('BUY') }],
-    });
   }
 
   ngOnInit(): void {
@@ -54,11 +42,13 @@ export class StrategyUpdateComponent implements OnInit {
 
   initForm(data: any) {
     console.log('data..', data);
-    this.strategyFormGroup = this.strategyServ.initStrategyForm(data);
-    console.log(this.strategyFormGroup);
-    this.onIndicatorsValueChanges();
+    this.strategyFormGroup = this.strategyFormService.initStrategyForm(data);
+    this.strategyFormService.onIndicatorsValueChanges(
+      this.indicators,
+      this.strategyFormGroup
+    );
     this.strategyFormGroup.get('direction').valueChanges.subscribe((val) => {
-      this.toggleIndicatorValueField(val);
+      this.strategyFormService.toggleIndicatorValueField(this.indicators, val);
     });
 
     this.strategyFormGroup.get('exchange').valueChanges.subscribe((val) => {
@@ -114,81 +104,52 @@ export class StrategyUpdateComponent implements OnInit {
     const strategyJson = {};
     for (const key in formValues) {
       if (key === 'time') {
-        strategyJson['entryTime'] = this.formatTime(formValues[key]?.entryTime);
-        strategyJson['exitTime'] = this.formatTime(formValues[key]?.exitTime);
+        strategyJson['entryTime'] = this.strategyFormService.formatTime(
+          formValues[key]?.entryTime
+        );
+        strategyJson['exitTime'] = this.strategyFormService.formatTime(
+          formValues[key]?.exitTime
+        );
         continue;
       }
       strategyJson[key] = formValues[key];
     }
     strategyJson['active'] = true;
+    console.log('update json...', strategyJson);
     this.store.dispatch(new UpdateStrategy(strategyJson, this.strategyID));
   }
 
   onAddIndicator(event: any) {
-    this.indicators.push(this.indicator);
-    this.onIndicatorsValueChanges();
+    if (this.indicators.length >= 5) {
+      this.indicatorError = 'Cannot add more than 5 indicators';
+      this.hideIndicatorError();
+      return;
+    }
+    this.indicators.push(
+      this.strategyFormService.getNewIndicatorFormGroup(this.strategyFormGroup)
+    );
+    this.strategyFormService.onIndicatorsValueChanges(
+      this.indicators,
+      this.strategyFormGroup
+    );
   }
 
   onDeleteIndicator(index: number) {
-    this.indicators.removeAt(index);
-    this.onIndicatorsValueChanges();
-  }
-
-  toggleIndicatorValueField(value: string) {
-    this.indicators.controls.forEach((control) => {
-      if (value === 'BUY') {
-        control.get('value1').enable();
-        this.resetControl(control, 'value2');
-        this.resetControl(control, 'operator2');
-        control.get('value2').disable();
-      } else if (value === 'SELL') {
-        this.resetControl(control, 'value1');
-        this.resetControl(control, 'operator2');
-        control.get('value1').disable();
-        control.get('value2').enable();
-      } else {
-        control.get('value1').enable();
-        control.get('value2').enable();
-        control
-          .get('operator2')
-          .setValue(this.getOperator2(control, 'operator1'));
-        control.get('operator2').disable();
-      }
-    });
-  }
-
-  resetControl(control: AbstractControl, field: string) {
-    control.get(field).reset();
-  }
-
-  checkDisable(value: string): boolean {
-    if (this.strategyFormGroup.get('direction').value === value) return true;
-    return false;
-  }
-
-  getOperator2(control: AbstractControl, field: string): string {
-    console.log(control.get(field).value);
-    switch (control.get(field).value) {
-      case 'signal':
-        return 'signal';
-      case 'greater':
-        return 'less';
-      case 'less':
-        return 'greater';
-      default:
-        return null;
+    if (this.indicators.length <= 1) {
+      this.indicatorError = 'There should be atleast 1 indicator';
+      this.hideIndicatorError();
+      return;
     }
+    this.indicators.removeAt(index);
+    this.strategyFormService.onIndicatorsValueChanges(
+      this.indicators,
+      this.strategyFormGroup
+    );
   }
 
-  formatTime(time: any): string {
-    const timeArr = time.split(':');
-    const today = new Date();
-    return new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-      timeArr[0],
-      timeArr[1]
-    ).toISOString();
+  hideIndicatorError() {
+    setTimeout(() => {
+      this.indicatorError = '';
+    }, 5000);
   }
 }

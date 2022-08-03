@@ -14,6 +14,7 @@ export class PositionComponent implements OnInit, OnDestroy {
   dataToDisplay: any = [];
   columnsToDisplay: string[] = [
     'orderSymbol',
+    'quantity',
     'buyValue',
     'sellValue',
     'pnl',
@@ -37,7 +38,7 @@ export class PositionComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(d);
         });
       });
-    }, 3000);
+    }, 2000);
   }
 
   ngOnDestroy(): void {
