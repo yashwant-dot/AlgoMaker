@@ -64,22 +64,31 @@ export class PositionService {
           obj['quantity'] = obj['quantity'] + 0;
           obj['buyValue'] = obj['buyValue'] + this.getBuyValue(idata, key);
           obj['sellValue'] = obj['sellValue'] + this.getSellValue(idata, key);
-          obj['pnl'] = obj['pnl'] + (obj['sellValue'] - obj['buyValue']);
-          console.log('k', obj);
+          const pnl = obj['sellValue'] - obj['buyValue'];
+          obj['pnl'] = obj['pnl'] + pnl;
+          obj['ltp'] = await this.getltp(idata, key);
+          console.log('after pair..', obj);
         } else if (idata[key][0]?.direction === 'BUY') {
+          const sellLtpValue = await this.getBuySellValue(idata, key);
           obj['quantity'] = obj['quantity'] + idata[key][0]?.quantity;
           obj['buyValue'] = obj['buyValue'] + this.getBuyValue(idata, key);
-          obj['sellValue'] =
-            obj['sellValue'] + (await this.getBuySellValue(idata, key));
-          obj['pnl'] = obj['pnl'] + (obj['sellValue'] - obj['buyValue']);
-          obj['ltp'] = await this.getltp(idata, key);
+          obj['sellValue'] = obj['sellValue'] + sellLtpValue;
+          obj['pnl'] =
+            obj['pnl'] +
+            (sellLtpValue - idata[key][0]?.price * idata[key][0]?.quantity);
+          obj['ltp'] = sellLtpValue / idata[key][0]?.quantity;
+          console.log('after buy..', obj);
         } else {
+          const buyLtpValue = await this.getBuySellValue(idata, key);
           obj['quantity'] = obj['quantity'] - idata[key][0]?.quantity;
           obj['buyValue'] =
             obj['buyValue'] + (await this.getBuySellValue(idata, key));
           obj['sellValue'] = obj['sellValue'] + this.getSellValue(idata, key);
-          obj['pnl'] = obj['pnl'] + (obj['sellValue'] - obj['buyValue']);
-          obj['ltp'] = await this.getltp(idata, key);
+          obj['pnl'] =
+            obj['pnl'] +
+            (idata[key][0]?.price * idata[key][0]?.quantity - buyLtpValue);
+          obj['ltp'] = buyLtpValue / idata[key][0]?.quantity;
+          console.log('after sell..', obj);
         }
       }
       dataToDisplay.push(obj);

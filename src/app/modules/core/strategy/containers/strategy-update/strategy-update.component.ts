@@ -113,6 +113,15 @@ export class StrategyUpdateComponent implements OnInit {
         continue;
       }
       strategyJson[key] = formValues[key];
+      if (key === 'indicators' && formValues['direction'] === 'SELL') {
+        strategyJson[key] = formValues[key]?.map((indi) => {
+          return {
+            ...indi,
+            operator2: indi?.operator1,
+            operator1: null,
+          };
+        });
+      }
     }
     strategyJson['active'] = true;
     console.log('update json...', strategyJson);

@@ -155,7 +155,11 @@ export class StratergyFormService {
       strategyData.indicators.map((indicator) => {
         return this.fb.group({
           indicator: [indicator.indicator],
-          operator1: [indicator.operator1],
+          operator1: [
+            strategyData?.direction === 'SELL'
+              ? indicator.operator2
+              : indicator.operator1,
+          ],
           operator2: [{ value: indicator.operator2, disabled: true }],
           param1: [indicator.param1, [Validators.required]],
           param2: [
