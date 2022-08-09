@@ -3,12 +3,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import {
   AddAccount,
+  DeleteAccount,
   GetAllAccounts,
   getAllAccounts,
   MakeAccountDefault,
+  UpdateAccount,
 } from '../../+state';
 import { MatDialog } from '@angular/material/dialog';
-import { AddAccountFormComponent } from '../../components';
+import { AccountFormComponent } from '../../components';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components';
 @Component({
   selector: 'app-accounts',
@@ -47,6 +49,10 @@ export class AccountsComponent implements OnInit {
           createdAt: d.createdAt,
           default: d.isDefault,
           accountId: d._id,
+          password: d.password,
+          pin: d.pin,
+          totp_secret: d.totp_secret,
+          auth_type: d.auth_type,
         };
       });
       this.dataSource = new MatTableDataSource(this.dataToDisplay);
@@ -54,9 +60,10 @@ export class AccountsComponent implements OnInit {
   }
 
   onAddAccount() {
-    const dialogRef = this.dialog.open(AddAccountFormComponent, {
+    const dialogRef = this.dialog.open(AccountFormComponent, {
       width: '40%',
       autoFocus: false,
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -70,8 +77,28 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  onUpdateAccount(account) {
+    const dialogRef = this.dialog.open(AccountFormComponent, {
+      width: '40%',
+      autoFocus: false,
+      disableClose: true,
+      data: account,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('on update...', result);
+        this.store.dispatch(
+          new UpdateAccount({
+            ...result,
+            accountId: account?.accountId,
+            user: JSON.parse(localStorage.getItem('user'))?._id,
+          })
+        );
+      }
+    });
+  }
+
   onMakeDefault(accountId) {
-    console.log('acc id...', accountId);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '40%',
       autoFocus: false,
@@ -84,6 +111,26 @@ export class AccountsComponent implements OnInit {
       if (result) {
         this.store.dispatch(
           new MakeAccountDefault({
+            accountId,
+          })
+        );
+      }
+    });
+  }
+
+  onDeleteAccount(accountId) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '40%',
+      autoFocus: false,
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure you want to Delete this account ?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(
+          new DeleteAccount({
             accountId,
           })
         );

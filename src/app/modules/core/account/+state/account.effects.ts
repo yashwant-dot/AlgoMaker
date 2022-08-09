@@ -12,6 +12,12 @@ import {
   MakeAccountDefault,
   MakeAccountDefaultSuccess,
   MakeAccountDefaultFail,
+  DeleteAccount,
+  DeleteAccountFail,
+  DeleteAccountSuccess,
+  UpdateAccount,
+  UpdateAccountSuccess,
+  UpdateAccountFail,
 } from './account.actions';
 import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -94,6 +100,70 @@ export class AccountEffects {
     ),
     tap((action) => {
       this.sharedServ.openSnackBar('success', 'Account set as Default!');
+    })
+  );
+
+  @Effect() deleteAccount$ = this.actions$.pipe(
+    ofType<DeleteAccount>(AccountActionTypes.DeleteAccount),
+    switchMap((action) => {
+      return this.accountServ.deleteAccount(action.payload).pipe(
+        mergeMap((data) => {
+          if (data.error) {
+            this.sharedServ.openSnackBar('error', data.message);
+            return of(new DeleteAccountFail());
+          }
+          return [new DeleteAccountSuccess(), new GetAllAccounts()];
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false }) onDeleteAccountSuccess$ = this.actions$.pipe(
+    ofType<DeleteAccountSuccess>(AccountActionTypes.DeleteAccountSuccess),
+    tap((action) => {
+      this.sharedServ.openSnackBar('success', 'Account deleted successfully');
+    })
+  );
+
+  @Effect({ dispatch: false }) onDeleteAccountFailure$ = this.actions$.pipe(
+    ofType<DeleteAccountFail>(AccountActionTypes.DeleteAccountFail),
+    tap((action) => {
+      this.sharedServ.openSnackBar(
+        'error',
+        'Something went wrong! Please try again.'
+      );
+    })
+  );
+
+  @Effect() updateAccount$ = this.actions$.pipe(
+    ofType<UpdateAccount>(AccountActionTypes.UpdateAccount),
+    switchMap((action) => {
+      return this.accountServ.updateAccount(action.payload).pipe(
+        mergeMap((data) => {
+          if (data.error) {
+            this.sharedServ.openSnackBar('error', data.message);
+            return of(new UpdateAccountFail());
+          }
+          return [new UpdateAccountSuccess(), new GetAllAccounts()];
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false }) onUpdateAccountSuccess$ = this.actions$.pipe(
+    ofType<UpdateAccountSuccess>(AccountActionTypes.UpdateAccountSuccess),
+    tap((action) => {
+      this.sharedServ.openSnackBar('success', 'Account updated successfully');
+    })
+  );
+
+  @Effect({ dispatch: false }) onUpdateAccountFailure$ = this.actions$.pipe(
+    ofType<UpdateAccountFail>(AccountActionTypes.UpdateAccountFail),
+    tap((action) => {
+      this.sharedServ.openSnackBar(
+        'error',
+        'Something went wrong! Please try again.'
+      );
     })
   );
 }

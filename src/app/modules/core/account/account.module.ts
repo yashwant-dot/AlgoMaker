@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountsComponent, DefaultAccountComponent } from './containers';
-import { AddAccountFormComponent } from './components';
+import { AccountsComponent } from './containers';
+import { AccountFormComponent } from './components';
 import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,11 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AccountsComponent,
-    DefaultAccountComponent,
-    AddAccountFormComponent,
-  ],
+  declarations: [AccountsComponent, AccountFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

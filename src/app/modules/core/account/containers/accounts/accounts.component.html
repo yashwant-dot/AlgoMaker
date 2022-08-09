@@ -83,6 +83,15 @@
                   <button mat-menu-item (click)="onMakeDefault(row.accountId)">
                     Make Default
                   </button>
+                  <button mat-menu-item (click)="onUpdateAccount(row)">
+                    Update
+                  </button>
+                  <button
+                    mat-menu-item
+                    (click)="onDeleteAccount(row.accountId)"
+                  >
+                    Delete
+                  </button>
                 </mat-menu>
               </td>
             </ng-container>
@@ -94,9 +103,6 @@
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
           </table>
         </div>
-      </mat-tab>
-      <mat-tab label="Default Account Settings">
-        <app-default-account></app-default-account>
       </mat-tab>
     </mat-tab-group>
   </div>

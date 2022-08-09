@@ -38,4 +38,24 @@ export class AccountService {
         catchError((error) => of(error))
       );
   }
+
+  deleteAccount(payload: any): Observable<any> {
+    const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
+    return this.http
+      .post(`${API}/accounts/deleteAccount/${id}`, JSON.stringify(payload))
+      .pipe(
+        map((response: any) => response),
+        catchError((error) => of(error))
+      );
+  }
+
+  updateAccount(payload: any): Observable<any> {
+    const id = JSON.parse(localStorage.getItem('user') || '{}')?._id;
+    return this.http
+      .post(`${API}/accounts/updateAccount/${id}`, JSON.stringify(payload))
+      .pipe(
+        map((response: any) => response),
+        catchError((error) => of(error))
+      );
+  }
 }

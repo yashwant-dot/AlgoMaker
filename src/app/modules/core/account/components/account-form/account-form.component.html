@@ -1,17 +1,17 @@
 <div class="modal-header">
-  <h2 mat-dialog-title>Add Account</h2>
+  <h2 mat-dialog-title>{{ account ? "Update" : "Add" }} Account</h2>
   <button mat-icon-button (click)="onClose()" type="button">
     <mat-icon>close</mat-icon>
   </button>
 </div>
 <div>
-  <form [formGroup]="addAccountFormGroup">
+  <form [formGroup]="accountFormGroup">
     <div class="row mb-1">
       <div class="form__field col-12 col-md-6">
         <shared-dropdown
           [placeholder]="'Broker'"
           [optionsData]="brokerOptions"
-          [dropdownForm]="addAccountFormGroup"
+          [dropdownForm]="accountFormGroup"
           [dropdownControl]="'broker'"
           [isRequired]="false"
         ></shared-dropdown>
@@ -21,7 +21,7 @@
       <div class="form__field col-12 col-sm-6">
         <shared-input
           [type]="'text'"
-          [inputForm]="addAccountFormGroup"
+          [inputForm]="accountFormGroup"
           [inputControl]="'userID'"
           [label]="'User ID'"
         ></shared-input>
@@ -29,7 +29,7 @@
       <div class="form__field col-12 col-sm-6">
         <shared-input
           [type]="'password'"
-          [inputForm]="addAccountFormGroup"
+          [inputForm]="accountFormGroup"
           [inputControl]="'password'"
           [label]="'Password'"
         ></shared-input>
@@ -41,7 +41,7 @@
         <shared-dropdown
           [placeholder]="'Auth Type'"
           [optionsData]="authTypeOptions"
-          [dropdownForm]="addAccountFormGroup"
+          [dropdownForm]="accountFormGroup"
           [dropdownControl]="'auth_type'"
           [isRequired]="false"
         ></shared-dropdown>
@@ -49,11 +49,11 @@
 
       <div
         class="form__field col-12 col-md-6"
-        *ngIf="addAccountFormGroup.get('auth_type').value === 'totp'"
+        *ngIf="accountFormGroup.get('auth_type').value === 'totp'"
       >
         <shared-input
           [type]="'text'"
-          [inputForm]="addAccountFormGroup"
+          [inputForm]="accountFormGroup"
           [inputControl]="'totp_secret'"
           [label]="'T-OTP Secret'"
         ></shared-input>
@@ -61,11 +61,11 @@
 
       <div
         class="form__field col-12 col-md-6"
-        *ngIf="addAccountFormGroup.get('auth_type').value === 'pin'"
+        *ngIf="accountFormGroup.get('auth_type').value === 'pin'"
       >
         <shared-input
           [type]="'number'"
-          [inputForm]="addAccountFormGroup"
+          [inputForm]="accountFormGroup"
           [inputControl]="'pin'"
           [label]="'PIN'"
         ></shared-input>
@@ -78,10 +78,10 @@
         color="primary"
         type="button"
         style="margin-right: 1rem"
-        [disabled]="!addAccountFormGroup.valid"
-        (click)="onAddAccount(addAccountFormGroup.getRawValue())"
+        [disabled]="!accountFormGroup.valid"
+        (click)="onSubmit(accountFormGroup.getRawValue())"
       >
-        Add Account
+        {{ account ? "Update" : "Add" }} Account
       </button>
       <button mat-raised-button type="button" (click)="onClose()">
         Cancel

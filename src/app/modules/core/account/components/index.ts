@@ -1,1 +1,1 @@
-export * from './add-account-form/add-account-form.component';
+export * from './account-form/account-form.component';
