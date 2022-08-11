@@ -64,6 +64,9 @@ export class StrategyAddComponent implements OnInit {
         continue;
       }
       strategyJson[key] = formValues[key];
+      if (this.strategyFormService.checkKeyForNumber(key)) {
+        strategyJson[key] = parseInt(formValues[key]);
+      }
       if (key === 'indicators' && formValues['direction'] === 'SELL') {
         strategyJson[key] = formValues[key]?.map((indi) => {
           return {
@@ -76,8 +79,9 @@ export class StrategyAddComponent implements OnInit {
     }
     strategyJson['active'] = true;
     strategyJson['user'] = JSON.parse(localStorage.getItem('user'))._id;
+    console.log('form values...', formValues);
     console.log('add...', strategyJson);
-    this.store.dispatch(new AddStrategy(strategyJson));
+    // this.store.dispatch(new AddStrategy(strategyJson));
   }
 
   onAddIndicator(event: any) {

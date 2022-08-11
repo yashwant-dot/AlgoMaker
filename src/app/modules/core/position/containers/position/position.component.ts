@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { PositionService } from '../../position.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-position',
@@ -21,6 +22,7 @@ export class PositionComponent implements OnInit, OnDestroy {
     'ltp',
   ];
   apiInterval;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private store: Store, public posServ: PositionService) {}
 
   ngOnInit(): void {
@@ -30,12 +32,14 @@ export class PositionComponent implements OnInit, OnDestroy {
         setTimeout(() => (this.loading = false), 1000);
         this.dataToDisplay = d;
         this.dataSource = new MatTableDataSource(d);
+        this.dataSource.sort = this.sort;
       });
     });
     this.apiInterval = setInterval(() => {
       this.posServ.getPositions().subscribe((data) => {
         data.then((d) => {
           this.dataSource = new MatTableDataSource(d);
+          this.dataSource.sort = this.sort;
         });
       });
     }, 2000);

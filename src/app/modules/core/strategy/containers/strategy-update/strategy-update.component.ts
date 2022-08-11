@@ -113,6 +113,9 @@ export class StrategyUpdateComponent implements OnInit {
         continue;
       }
       strategyJson[key] = formValues[key];
+      if (this.strategyFormService.checkKeyForNumber(key)) {
+        strategyJson[key] = parseInt(formValues[key]);
+      }
       if (key === 'indicators' && formValues['direction'] === 'SELL') {
         strategyJson[key] = formValues[key]?.map((indi) => {
           return {

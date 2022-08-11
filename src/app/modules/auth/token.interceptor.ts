@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ export class TokenInterceptor implements HttpInterceptor {
           this.authServ.removeTokens();
           this.router.navigate(['login']);
         }
-        return of(errorData);
+        return throwError(errorData);
       })
     ) as Observable<HttpEvent<any>>;
   }

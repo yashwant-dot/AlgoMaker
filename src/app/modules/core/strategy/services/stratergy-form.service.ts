@@ -289,4 +289,17 @@ export class StratergyFormService {
     if (strategyFormGroup.get('direction').value === value) return true;
     return false;
   }
+
+  checkKeyForNumber(key): boolean {
+    if (
+      key === 'quantity' ||
+      key === 'target' ||
+      key === 'stopLoss' ||
+      key === 'trailSLXPoint' ||
+      key === 'trailSLYPoint'
+    ) {
+      return true;
+    }
+    return false;
+  }
 }

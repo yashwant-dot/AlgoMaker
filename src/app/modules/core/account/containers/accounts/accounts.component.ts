@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import {
@@ -12,6 +12,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AccountFormComponent } from '../../components';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -29,6 +30,7 @@ export class AccountsComponent implements OnInit {
     'default',
     'action',
   ];
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private store: Store, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class AccountsComponent implements OnInit {
         };
       });
       this.dataSource = new MatTableDataSource(this.dataToDisplay);
+      this.dataSource.sort = this.sort;
     }
   }
 
