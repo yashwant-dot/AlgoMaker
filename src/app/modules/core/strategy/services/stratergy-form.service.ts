@@ -98,6 +98,9 @@ export class StratergyFormService {
           ? strategyData.orderSymbol
           : 'NIFTY_FUT',
       ],
+      maxOrders: [
+        strategyData && strategyData.maxOrders ? strategyData.maxOrders : null,
+      ],
       target: [
         strategyData && strategyData.target ? strategyData.target : 0,
         [Validators.required, Validators.min(0)],
@@ -293,6 +296,7 @@ export class StratergyFormService {
   checkKeyForNumber(key): boolean {
     if (
       key === 'quantity' ||
+      key === 'maxOrders' ||
       key === 'target' ||
       key === 'stopLoss' ||
       key === 'trailSLXPoint' ||

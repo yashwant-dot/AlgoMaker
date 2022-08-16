@@ -52,7 +52,7 @@ export class PositionService {
     for (const okey in data) {
       const idata = data[okey];
       const obj = {
-        orderSymbol: '',
+        orderSymbol: okey,
         quantity: 0,
         buyValue: 0,
         sellValue: 0,
@@ -128,11 +128,12 @@ export class PositionService {
     let d = {};
     await this.http
       .get(
-        `http://ec2-3-108-53-207.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
       .then((ltpData: any) => {
+        console.log('ltpdata...', ltpData);
         d = {
           orderSymbol: data[key][0]?.orderSymbol,
           buyValue: data[key][0].price * data[key][0].quantity,
@@ -150,7 +151,7 @@ export class PositionService {
     let d = {};
     await this.http
       .get(
-        `http://ec2-3-108-53-207.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
@@ -172,7 +173,7 @@ export class PositionService {
     let value;
     await this.http
       .get(
-        `http://ec2-3-108-53-207.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
@@ -186,7 +187,7 @@ export class PositionService {
     let ltp;
     await this.http
       .get(
-        `http://ec2-3-108-53-207.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
