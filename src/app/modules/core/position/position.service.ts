@@ -128,7 +128,7 @@ export class PositionService {
     let d = {};
     await this.http
       .get(
-        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
@@ -151,7 +151,7 @@ export class PositionService {
     let d = {};
     await this.http
       .get(
-        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
@@ -173,7 +173,7 @@ export class PositionService {
     let value;
     await this.http
       .get(
-        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
@@ -187,7 +187,7 @@ export class PositionService {
     let ltp;
     await this.http
       .get(
-        `http://ec2-3-110-137-234.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
