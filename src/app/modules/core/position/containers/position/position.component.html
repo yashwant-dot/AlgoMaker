@@ -1,11 +1,14 @@
-<div class="page">
+<div class="page positions">
   <shared-page-title [title]="'Positions'"></shared-page-title>
 
-  <div class="mat-elevation-z8 page__content">
+  <div class="mat-elevation-z8 page__content positions__content">
     <div *ngIf="loading" class="loader">
       <mat-spinner [diameter]="50"></mat-spinner>
     </div>
-    <div class="page__table" *ngIf="dataToDisplay.length > 0 && !loading">
+    <div
+      class="page__table positions__table"
+      *ngIf="dataToDisplay.length > 0 && !loading"
+    >
       <table mat-table matSort [dataSource]="dataSource">
         <ng-container matColumnDef="orderSymbol">
           <th
@@ -77,6 +80,11 @@
         ></tr>
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
       </table>
+    </div>
+    <div class="positions__totalPnl" *ngIf="totalPnl && !loading">
+      <p>
+        Total PNL: <span>{{ totalPnl | number: "1.2-2" }}</span>
+      </p>
     </div>
     <div *ngIf="dataToDisplay.length === 0 && !loading" class="noData">
       <h2>No Positions Found!</h2>

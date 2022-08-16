@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class PositionComponent implements OnInit, OnDestroy {
   loading: boolean = false;
+  totalPnl = 0;
   dataSource: MatTableDataSource<any>;
   dataToDisplay: any = [];
   columnsToDisplay: string[] = [
@@ -31,6 +32,10 @@ export class PositionComponent implements OnInit, OnDestroy {
       data.then((d) => {
         setTimeout(() => (this.loading = false), 1000);
         this.dataToDisplay = d;
+        this.totalPnl = 0;
+        Array.from(this.dataToDisplay).forEach((data: any) => {
+          this.totalPnl += data.pnl;
+        });
         this.dataSource = new MatTableDataSource(d);
         this.dataSource.sort = this.sort;
       });
@@ -38,7 +43,12 @@ export class PositionComponent implements OnInit, OnDestroy {
     this.apiInterval = setInterval(() => {
       this.posServ.getPositions().subscribe((data) => {
         data.then((d) => {
+          this.dataToDisplay = d;
           this.dataSource = new MatTableDataSource(d);
+          this.totalPnl = 0;
+          Array.from(this.dataToDisplay).forEach((data: any) => {
+            this.totalPnl += data.pnl;
+          });
           this.dataSource.sort = this.sort;
         });
       });

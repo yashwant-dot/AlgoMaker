@@ -24,14 +24,8 @@ export class PositionService {
       return [];
     }
     const newData = data?.filter((d) => d.status === 'COMPLETE');
-    console.log('group by os...', this.groupBy(newData, 'orderSymbol'));
     const groupByOrderSymbol = this.groupBy(newData, 'orderSymbol');
-    for (const key in groupByOrderSymbol) {
-      groupByOrderSymbol[key] = this.groupBy(groupByOrderSymbol[key], 'pairId');
-    }
-    console.log('group by os pid...', groupByOrderSymbol);
-    const groupByPairId = this.groupBy(newData, 'pairId');
-    return await this.mapData(groupByOrderSymbol);
+    return this.newMap(groupByOrderSymbol);
   }
 
   groupBy(array, key) {
@@ -46,11 +40,12 @@ export class PositionService {
     }, {}); // empty object is the initial value for result object
   }
 
-  async mapData(data) {
+  async newMap(data) {
     let dataToDisplay = [];
-    console.log('dd..', data);
     for (const okey in data) {
-      const idata = data[okey];
+      let buyArray = [];
+      let sellArray = [];
+      const orders = data[okey];
       const obj = {
         orderSymbol: okey,
         quantity: 0,
@@ -58,136 +53,77 @@ export class PositionService {
         sellValue: 0,
         pnl: 0,
       };
-      for (const key in idata) {
-        if (idata[key]?.length === 2) {
-          obj['orderSymbol'] = idata[key][0]?.orderSymbol;
-          obj['quantity'] = obj['quantity'] + 0;
-          obj['buyValue'] = obj['buyValue'] + this.getBuyValue(idata, key);
-          obj['sellValue'] = obj['sellValue'] + this.getSellValue(idata, key);
-          const pnl = obj['sellValue'] - obj['buyValue'];
-          obj['pnl'] = obj['pnl'] + pnl;
-          obj['ltp'] = await this.getltp(idata, key);
-          console.log('after pair..', obj);
-        } else if (idata[key][0]?.direction === 'BUY') {
-          const sellLtpValue = await this.getBuySellValue(idata, key);
-          obj['quantity'] = obj['quantity'] + idata[key][0]?.quantity;
-          obj['buyValue'] = obj['buyValue'] + this.getBuyValue(idata, key);
-          obj['sellValue'] = obj['sellValue'] + sellLtpValue;
-          obj['pnl'] =
-            obj['pnl'] +
-            (sellLtpValue - idata[key][0]?.price * idata[key][0]?.quantity);
-          obj['ltp'] = sellLtpValue / idata[key][0]?.quantity;
-          console.log('after buy..', obj);
+
+      Array.from(orders).forEach((order: any) => {
+        if (order?.direction === 'BUY') {
+          buyArray.push(order);
         } else {
-          const buyLtpValue = await this.getBuySellValue(idata, key);
-          obj['quantity'] = obj['quantity'] - idata[key][0]?.quantity;
-          obj['buyValue'] =
-            obj['buyValue'] + (await this.getBuySellValue(idata, key));
-          obj['sellValue'] = obj['sellValue'] + this.getSellValue(idata, key);
-          obj['pnl'] =
-            obj['pnl'] +
-            (idata[key][0]?.price * idata[key][0]?.quantity - buyLtpValue);
-          obj['ltp'] = buyLtpValue / idata[key][0]?.quantity;
-          console.log('after sell..', obj);
+          sellArray.push(order);
         }
+      });
+
+      let i = 0,
+        j = 0;
+      while (i < buyArray.length && j < sellArray.length) {
+        obj['quantity'] = obj['quantity'] + 0;
+        obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
+        obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+        const pnl = obj['sellValue'] - obj['buyValue'];
+        obj['pnl'] = obj['pnl'] + pnl;
+        obj['ltp'] = await this.getltp(buyArray[i]);
+        i++;
+        j++;
+      }
+
+      while (i < buyArray.length) {
+        const sellLtpValue = await this.getBuySellValue(buyArray[i]);
+        obj['quantity'] = obj['quantity'] + 1;
+        obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
+        obj['sellValue'] = obj['sellValue'];
+        const pnl = obj['sellValue'] + sellLtpValue - obj['buyValue'];
+        obj['pnl'] = obj['pnl'] + pnl;
+        obj['ltp'] = await this.getltp(buyArray[i]);
+        i++;
+      }
+
+      while (j < sellArray.length) {
+        const buyLtpValue = await this.getBuySellValue(sellArray[j]);
+        obj['quantity'] = obj['quantity'] - 1;
+        obj['buyValue'] = obj['buyValue'];
+        obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+        const pnl = obj['sellValue'] - (obj['buyValue'] + buyLtpValue);
+        obj['pnl'] = obj['pnl'] + pnl;
+        obj['ltp'] = await this.getltp(sellArray[j]);
+        j++;
       }
       dataToDisplay.push(obj);
     }
-    console.log('dd to di...', dataToDisplay);
-    // for (const key in data) {
-    //   if (data[key]?.length === 2) {
-    //     dataToDisplay.push({
-    //       orderSymbol: data[key][0]?.orderSymbol,
-    //       buyValue: this.getBuyValue(data, key),
-    //       sellValue: this.getSellValue(data, key),
-    //       pnl: this.getSellValue(data, key) - this.getBuyValue(data, key),
-    //       ltp: null,
-    //     });
-    //   } else if (data[key][0]?.direction === 'BUY') {
-    //     dataToDisplay.push(await this.getBuyCase(data, key));
-    //   } else {
-    //     dataToDisplay.push(await this.getSellCase(data, key));
-    //   }
-    // }
     return dataToDisplay;
   }
 
-  getBuyValue(data, key): any {
-    return data[key][0]?.direction === 'BUY'
-      ? data[key][0]?.price * data[key][0]?.quantity
-      : data[key][1]?.price * data[key][1]?.quantity;
+  getBSV(order) {
+    return order?.price * order?.quantity;
   }
 
-  getSellValue(data, key): any {
-    return data[key][0]?.direction === 'SELL'
-      ? data[key][0]?.price * data[key][0]?.quantity
-      : data[key][1]?.price * data[key][1]?.quantity;
-  }
-
-  async getBuyCase(data, key) {
-    let d = {};
-    await this.http
-      .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
-      )
-      .pipe(take(1))
-      .toPromise()
-      .then((ltpData: any) => {
-        console.log('ltpdata...', ltpData);
-        d = {
-          orderSymbol: data[key][0]?.orderSymbol,
-          buyValue: data[key][0].price * data[key][0].quantity,
-          sellValue: ltpData?.ltp * data[key][0].quantity,
-          pnl:
-            ltpData?.ltp * data[key][0].quantity -
-            data[key][0].price * data[key][0].quantity,
-          ltp: ltpData?.ltp,
-        };
-      });
-    return d;
-  }
-
-  async getSellCase(data, key) {
-    let d = {};
-    await this.http
-      .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
-      )
-      .pipe(take(1))
-      .toPromise()
-      .then((ltpData: any) => {
-        d = {
-          orderSymbol: data[key][0]?.orderSymbol,
-          buyValue: ltpData?.ltp * data[key][0].quantity,
-          sellValue: data[key][0].price * data[key][0].quantity,
-          pnl:
-            data[key][0].price * data[key][0].quantity -
-            ltpData?.ltp * data[key][0].quantity,
-          ltp: ltpData?.ltp,
-        };
-      });
-    return d;
-  }
-
-  async getBuySellValue(data, key) {
+  async getBuySellValue(order) {
     let value;
     await this.http
       .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${order?.orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
       .then((ltpData: any) => {
-        value = ltpData?.ltp * data[key][0].quantity;
+        value = ltpData?.ltp * order?.quantity;
       });
     return value;
   }
 
-  async getltp(data, key) {
+  async getltp(order) {
     let ltp;
     await this.http
       .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${data[key][0].orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${order?.orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
