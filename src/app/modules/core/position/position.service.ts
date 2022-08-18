@@ -61,40 +61,56 @@ export class PositionService {
           sellArray.push(order);
         }
       });
+      const ltpN = await this.getltp(
+        buyArray.length > 0 ? buyArray[0] : sellArray[0]
+      );
 
       let i = 0,
         j = 0;
-      while (i < buyArray.length && j < sellArray.length) {
-        obj['quantity'] = obj['quantity'] + 0;
-        obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
-        obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+
+      if (i < buyArray.length && j < sellArray.length) {
+        while (i < buyArray.length && j < sellArray.length) {
+          obj['quantity'] = obj['quantity'] + 0;
+          obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
+          obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+          i++;
+          j++;
+        }
         const pnl = obj['sellValue'] - obj['buyValue'];
         obj['pnl'] = obj['pnl'] + pnl;
-        obj['ltp'] = await this.getltp(buyArray[i]);
-        i++;
-        j++;
+        obj['ltp'] = ltpN;
       }
 
-      while (i < buyArray.length) {
-        const sellLtpValue = await this.getBuySellValue(buyArray[i]);
-        obj['quantity'] = obj['quantity'] + 1;
-        obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
-        obj['sellValue'] = obj['sellValue'];
+      if (i < buyArray.length) {
+        const sellLtpValue = await this.getBuySellValue(
+          obj['orderSymbol'],
+          buyArray.length - i
+        );
+        while (i < buyArray.length) {
+          obj['quantity'] = obj['quantity'] + 1;
+          obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
+          obj['sellValue'] = obj['sellValue'];
+          i++;
+        }
         const pnl = obj['sellValue'] + sellLtpValue - obj['buyValue'];
         obj['pnl'] = obj['pnl'] + pnl;
-        obj['ltp'] = await this.getltp(buyArray[i]);
-        i++;
+        obj['ltp'] = ltpN;
       }
 
-      while (j < sellArray.length) {
-        const buyLtpValue = await this.getBuySellValue(sellArray[j]);
-        obj['quantity'] = obj['quantity'] - 1;
-        obj['buyValue'] = obj['buyValue'];
-        obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+      if (j < sellArray.length) {
+        const buyLtpValue = await this.getBuySellValue(
+          obj['orderSymbol'],
+          sellArray.length - j
+        );
+        while (j < sellArray.length) {
+          obj['quantity'] = obj['quantity'] - 1;
+          obj['buyValue'] = obj['buyValue'];
+          obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+          j++;
+        }
         const pnl = obj['sellValue'] - (obj['buyValue'] + buyLtpValue);
         obj['pnl'] = obj['pnl'] + pnl;
-        obj['ltp'] = await this.getltp(sellArray[j]);
-        j++;
+        obj['ltp'] = ltpN;
       }
       dataToDisplay.push(obj);
     }
@@ -105,16 +121,16 @@ export class PositionService {
     return order?.price * order?.quantity;
   }
 
-  async getBuySellValue(order) {
+  async getBuySellValue(orderSymbol, quantity) {
     let value;
     await this.http
       .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${order?.orderSymbol}`
+        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${orderSymbol}`
       )
       .pipe(take(1))
       .toPromise()
       .then((ltpData: any) => {
-        value = ltpData?.ltp * order?.quantity;
+        value = ltpData?.ltp * quantity;
       });
     return value;
   }
