@@ -9,6 +9,7 @@ import {
   orderTypeOptions,
   targetUnitOptions,
   stopLossUnitOptions,
+  maxOrdersOptions,
   exchangeOptions,
   futDataSymbols,
   optNiftyOrderSymbols,
@@ -31,6 +32,7 @@ export class StrategyFormComponent implements OnInit {
   targetUnitOptions = targetUnitOptions;
   stopLossUnitOptions = stopLossUnitOptions;
   exchangeOptions = exchangeOptions;
+  maxOrdersOptions = maxOrdersOptions;
   @Input() strategyFormGroup!: FormGroup;
   @Input() isUpdate: boolean = false;
   @Input() indicatorError: string;
