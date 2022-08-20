@@ -101,6 +101,7 @@ export class StratergyFormService {
       maxOrders: [
         strategyData && strategyData.maxOrders ? strategyData.maxOrders : 1,
       ],
+      ce_pe: [strategyData && strategyData.ce_pe ? strategyData.ce_pe : 'ce'],
       target: [
         strategyData && strategyData.target ? strategyData.target : 0,
         [Validators.required, Validators.min(0)],

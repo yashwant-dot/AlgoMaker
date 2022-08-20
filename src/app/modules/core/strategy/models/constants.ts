@@ -29,6 +29,11 @@ export const maxOrdersOptions = [
   { id: 10, name: '10' },
 ];
 
+export const CE_PE_Options = [
+  { id: 'ce', name: 'CE' },
+  { id: 'pe', name: 'PE' },
+];
+
 export const indicatorOptions = [
   { id: 'supertrend', name: 'Supertrend' },
   { id: 'rsi', name: 'RSI' },

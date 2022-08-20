@@ -68,12 +68,25 @@
           [isRequired]="false"
         ></shared-dropdown>
       </div>
+    </div>
+
+    <div class="row -mb-1">
       <div class="form__field col-12 col-sm-6 col-md-3">
         <shared-dropdown
           [placeholder]="'Max Orders'"
           [optionsData]="maxOrdersOptions"
           [dropdownForm]="strategyFormGroup"
           [dropdownControl]="'maxOrders'"
+          [isRequired]="false"
+        ></shared-dropdown>
+      </div>
+
+      <div class="form__field col-12 col-sm-6 col-md-3">
+        <shared-dropdown
+          [placeholder]="'CE/PE'"
+          [optionsData]="cepeOptions"
+          [dropdownForm]="strategyFormGroup"
+          [dropdownControl]="'ce_pe'"
           [isRequired]="false"
         ></shared-dropdown>
       </div>

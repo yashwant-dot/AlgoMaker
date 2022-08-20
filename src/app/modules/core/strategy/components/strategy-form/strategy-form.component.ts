@@ -11,6 +11,7 @@ import {
   stopLossUnitOptions,
   maxOrdersOptions,
   exchangeOptions,
+  CE_PE_Options,
   futDataSymbols,
   optNiftyOrderSymbols,
   optBankNiftyOrderSymbols,
@@ -33,6 +34,7 @@ export class StrategyFormComponent implements OnInit {
   stopLossUnitOptions = stopLossUnitOptions;
   exchangeOptions = exchangeOptions;
   maxOrdersOptions = maxOrdersOptions;
+  cepeOptions = CE_PE_Options;
   @Input() strategyFormGroup!: FormGroup;
   @Input() isUpdate: boolean = false;
   @Input() indicatorError: string;
