@@ -54,6 +54,10 @@ export class StrategyUpdateComponent implements OnInit {
     this.strategyFormGroup.get('exchange').valueChanges.subscribe((val) => {
       this.strategyFormGroup.get('dataSymbol').reset();
       this.strategyFormGroup.get('orderSymbol').reset();
+
+      if (val === 'fut_fut') {
+        this.strategyFormGroup.get('ce_pe').setValue(null);
+      }
     });
     this.strategyFormGroup.get('dataSymbol').valueChanges.subscribe((val) => {
       this.strategyFormGroup.get('orderSymbol').reset();
