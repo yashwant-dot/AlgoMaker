@@ -82,33 +82,29 @@ export class PositionService {
       }
 
       if (i < buyArray.length) {
-        const sellLtpValue = await this.getBuySellValue(
-          obj['orderSymbol'],
-          buyArray.length - i
-        );
+        let pnl = 0;
         while (i < buyArray.length) {
-          obj['quantity'] = obj['quantity'] + 1;
+          const sellLtpValue = ltpN * buyArray[i].quantity;
+          obj['quantity'] = obj['quantity'] + buyArray[i].quantity;
           obj['buyValue'] = obj['buyValue'] + this.getBSV(buyArray[i]);
           obj['sellValue'] = obj['sellValue'];
+          pnl = obj['sellValue'] + sellLtpValue - obj['buyValue'];
           i++;
         }
-        const pnl = obj['sellValue'] + sellLtpValue - obj['buyValue'];
         obj['pnl'] = obj['pnl'] + pnl;
         obj['ltp'] = ltpN;
       }
 
       if (j < sellArray.length) {
-        const buyLtpValue = await this.getBuySellValue(
-          obj['orderSymbol'],
-          sellArray.length - j
-        );
+        let pnl = 0;
         while (j < sellArray.length) {
-          obj['quantity'] = obj['quantity'] - 1;
+          const buyLtpValue = ltpN * sellArray[i].quantity;
+          obj['quantity'] = obj['quantity'] - sellArray[i].quantity;
           obj['buyValue'] = obj['buyValue'];
           obj['sellValue'] = obj['sellValue'] + this.getBSV(sellArray[j]);
+          pnl = obj['sellValue'] - (obj['buyValue'] + buyLtpValue);
           j++;
         }
-        const pnl = obj['sellValue'] - (obj['buyValue'] + buyLtpValue);
         obj['pnl'] = obj['pnl'] + pnl;
         obj['ltp'] = ltpN;
       }
@@ -119,20 +115,6 @@ export class PositionService {
 
   getBSV(order) {
     return order?.price * order?.quantity;
-  }
-
-  async getBuySellValue(orderSymbol, quantity) {
-    let value;
-    await this.http
-      .get(
-        `http://ec2-52-66-225-112.ap-south-1.compute.amazonaws.com:4007/api/LTP?instrument=${orderSymbol}`
-      )
-      .pipe(take(1))
-      .toPromise()
-      .then((ltpData: any) => {
-        value = ltpData?.ltp * quantity;
-      });
-    return value;
   }
 
   async getltp(order) {
